@@ -32,6 +32,7 @@
 
 ## Design
 
+![](C:\Users\orhan\IdeaProjects\StudentManagementSystem\UmlCaseDiagram.PNG)
 ## Implementation
 
 ## Test

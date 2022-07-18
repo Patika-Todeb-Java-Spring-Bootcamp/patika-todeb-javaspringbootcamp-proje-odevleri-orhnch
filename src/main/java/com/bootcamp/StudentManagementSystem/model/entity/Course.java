@@ -22,8 +22,8 @@ public class Course {
     private int quota;
     private int numberOfStudentChoseCourse;
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.MERGE)
-    private List<Student> students;
+    //@ManyToMany(mappedBy = "courses", cascade = CascadeType.MERGE)
+    //private List<Student> students;
 
 
 

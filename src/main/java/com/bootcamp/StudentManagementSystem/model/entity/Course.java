@@ -21,6 +21,10 @@ public class Course {
     private String title;
     private int quota;
     private int numberOfStudentChoseCourse;
+    private String code;
+    private Class courseClass;
+
+
 
     //@ManyToMany(mappedBy = "courses", cascade = CascadeType.MERGE)
     //private List<Student> students;

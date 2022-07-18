@@ -1,6 +1,8 @@
 package com.bootcamp.StudentManagementSystem.service;
 
+import com.bootcamp.StudentManagementSystem.model.dto.CourseDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Course;
+import com.bootcamp.StudentManagementSystem.model.mapper.CourseMapper;
 import com.bootcamp.StudentManagementSystem.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +20,9 @@ public class CourseService {
     public List<Course> getAllCourses() {
         List<Course> allCourses = courseRepository.findAll();
         return allCourses;
+    }
+    public Course create(CourseDTO courseDTO){
+        Course course = CourseMapper.toEntity(courseDTO);
+        return courseRepository.save(course);
     }
 }

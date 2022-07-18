@@ -1,12 +1,12 @@
 package com.bootcamp.StudentManagementSystem.controller;
 
+import com.bootcamp.StudentManagementSystem.model.dto.CourseDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Course;
 import com.bootcamp.StudentManagementSystem.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +21,15 @@ public class CourseController {
     public ResponseEntity getAllCourses(){
         List<Course> allCourses = courseService.getAllCourses();
         return ResponseEntity.ok(allCourses);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity createNewCourse(@RequestBody CourseDTO course){
+        Course respCourse = courseService.create(course);
+        if(respCourse==null){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Course could not be created successfully");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(respCourse);
     }
 }

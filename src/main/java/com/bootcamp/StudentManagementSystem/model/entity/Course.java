@@ -24,7 +24,7 @@ public class Course {
     private String code;
     private Class courseClass;
 
-
+    private Prelector prelector;
 
     //@ManyToMany(mappedBy = "courses", cascade = CascadeType.MERGE)
     //private List<Student> students;

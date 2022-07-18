@@ -10,5 +10,5 @@ public class CourseDTO {
     private String title;
     private int quota;
     private String code;
-    private Class courseClass;
+    private int courseClass;
 }

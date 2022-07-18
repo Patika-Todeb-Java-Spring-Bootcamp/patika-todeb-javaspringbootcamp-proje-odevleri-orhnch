@@ -1,6 +1,5 @@
 package com.bootcamp.StudentManagementSystem.model.entity;
 
-import com.bootcamp.StudentManagementSystem.StudentManagementSystemApplication;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

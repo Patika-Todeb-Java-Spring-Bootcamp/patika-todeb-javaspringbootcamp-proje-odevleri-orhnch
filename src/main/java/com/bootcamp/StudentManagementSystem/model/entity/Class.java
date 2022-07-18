@@ -18,6 +18,13 @@ public class Class {
     private Long id;
 
     private String name;
+
+    @ManyToOne
+    private Department department;
+
+    @OneToMany(mappedBy = "courseClass", cascade = CascadeType.MERGE)
     private List<Course> courses;
+
+    @OneToMany(mappedBy = "classNumber", cascade = CascadeType.MERGE)
     private List<Student> students;
 }

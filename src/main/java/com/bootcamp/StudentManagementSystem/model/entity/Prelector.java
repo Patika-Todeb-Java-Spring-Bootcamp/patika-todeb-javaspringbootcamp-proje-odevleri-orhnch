@@ -1,10 +1,16 @@
 package com.bootcamp.StudentManagementSystem.model.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.util.List;
+@Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name= "prelector")
 public class Prelector {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +20,9 @@ public class Prelector {
     private String lastName;
     private String email;
 
+    @ManyToOne
     private Department department;
+
+    @OneToMany(mappedBy = "prelector", cascade = CascadeType.MERGE)
     private List<Course> courses;
 }

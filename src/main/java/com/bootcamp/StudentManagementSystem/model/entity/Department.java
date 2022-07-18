@@ -18,5 +18,16 @@ public class Department {
     private Long id;
 
     private String name;
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE)
     private List<Class> classes;
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE)
+    private List<Student> students;
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE)
+    private List<Prelector> prelectors;
+
+    @ManyToOne
+    private Faculty faculty;
 }

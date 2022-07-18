@@ -18,6 +18,8 @@ public class Faculty {
     private Long id;
 
     private String name;
+
+    @OneToMany(mappedBy = "faculty", cascade = CascadeType.MERGE)
     private List<Department> departments;
 
 }

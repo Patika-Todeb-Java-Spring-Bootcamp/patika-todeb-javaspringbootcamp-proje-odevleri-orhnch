@@ -14,4 +14,8 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Override
     List<Course> findAll();
+
+    Optional<Course> findCourseByTitle(String title);
+
+    Optional<Course> findCourseByCode(String code);
 }

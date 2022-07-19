@@ -1,7 +1,9 @@
 package com.bootcamp.StudentManagementSystem.controller;
 
 
+import com.bootcamp.StudentManagementSystem.model.dto.DepartmentDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.FacultyDTO;
+import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
 import com.bootcamp.StudentManagementSystem.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +53,16 @@ public class FacultyController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body("Related Faculty deleted successfully");
+    }
+    @PutMapping("/{name}")
+    public ResponseEntity updateDepartment(
+            @PathVariable String name,
+            @RequestBody FacultyDTO faculty) {
+        Faculty update = facultyService.update(name, faculty);
+        if (update == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Faculty could not be updated successfully");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(update);
     }
 }

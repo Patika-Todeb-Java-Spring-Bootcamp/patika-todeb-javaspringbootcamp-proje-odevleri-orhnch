@@ -1,11 +1,14 @@
 package com.bootcamp.StudentManagementSystem.service;
 
+import com.bootcamp.StudentManagementSystem.model.dto.FacultyDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
+import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
 import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.model.mapper.PrelectorMapper;
 import com.bootcamp.StudentManagementSystem.repository.PrelectorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,5 +35,22 @@ public class PrelectorService {
     public void delete(Long id) {
         getPrelectorById(id);
         prelectorRepository.deleteById(id);
+    }
+    public Prelector update(String email, PrelectorDTO prelector) {
+        Optional<Prelector> prelectorByEmail = prelectorRepository.findPrelectorByEmail(email);
+        if (!prelectorByEmail.isPresent())
+            return null;
+        Prelector updatedPrelector = prelectorByEmail.get();
+        if (!StringUtils.isEmpty(prelector.getEmail())) {
+            updatedPrelector.setEmail(prelector.getEmail());
+        }
+        if (!StringUtils.isEmpty(prelector.getFirstName())) {
+            updatedPrelector.setFirstName(prelector.getFirstName());
+        }
+        if (!StringUtils.isEmpty(prelector.getLastName())) {
+            updatedPrelector.setLastName(prelector.getLastName());
+        }
+
+        return prelectorRepository.save(updatedPrelector);
     }
 }

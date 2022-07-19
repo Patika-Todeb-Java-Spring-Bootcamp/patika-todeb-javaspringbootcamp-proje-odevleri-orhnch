@@ -6,6 +6,7 @@ import com.bootcamp.StudentManagementSystem.model.mapper.ClassMapper;
 import com.bootcamp.StudentManagementSystem.repository.ClassRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,5 +34,19 @@ public class ClassService {
     public void delete(Long id) {
         getClassById(id);
         classRepository.deleteById(id);
+    }
+    public Class update(String name, ClassDTO class1) {
+        Optional<Class> classByName = classRepository.findClassByName(name);
+        if (!classByName.isPresent())
+            return null;
+        Class updatedClass = classByName.get();
+        if (!StringUtils.isEmpty(class1.getName())) {
+            updatedClass.setName(class1.getName());
+        }
+        if (!StringUtils.isEmpty(class1.getDepartment())) {
+            updatedClass.setDepartment(class1.getDepartment());
+        }
+
+        return classRepository.save(updatedClass);
     }
 }

@@ -1,11 +1,14 @@
 package com.bootcamp.StudentManagementSystem.service;
 
+import com.bootcamp.StudentManagementSystem.model.dto.DepartmentDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.FacultyDTO;
+import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
 import com.bootcamp.StudentManagementSystem.model.mapper.FacultyMapper;
 import com.bootcamp.StudentManagementSystem.repository.FacultyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,5 +36,16 @@ public class FacultyService {
     public void delete(Long id) {
         getFacultyById(id);
         facultyRepository.deleteById(id);
+    }
+    public Faculty update(String name, FacultyDTO faculty) {
+        Optional<Faculty> facultyByName = facultyRepository.findFacultyByName(name);
+        if (!facultyByName.isPresent())
+            return null;
+        Faculty updatedFaculty = facultyByName.get();
+        if (!StringUtils.isEmpty(faculty.getName())) {
+            updatedFaculty.setName(faculty.getName());
+        }
+
+        return facultyRepository.save(updatedFaculty);
     }
 }

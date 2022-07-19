@@ -1,6 +1,8 @@
 package com.bootcamp.StudentManagementSystem.controller;
 
+import com.bootcamp.StudentManagementSystem.model.dto.ClassDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.CourseDTO;
+import com.bootcamp.StudentManagementSystem.model.entity.Class;
 import com.bootcamp.StudentManagementSystem.model.entity.Course;
 import com.bootcamp.StudentManagementSystem.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +54,16 @@ public class CourseController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body("Related Course deleted successfully");
+    }
+    @PutMapping("/{code}")
+    public ResponseEntity updateCourse(
+            @PathVariable String code,
+            @RequestBody CourseDTO course) {
+        Course update = courseService.update(code, course);
+        if (update == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Course could not be updated successfully");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(update);
     }
 }

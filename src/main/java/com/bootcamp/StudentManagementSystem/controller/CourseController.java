@@ -18,15 +18,26 @@ public class CourseController {
     private CourseService courseService;
 
     @GetMapping("/all")
-    public ResponseEntity getAllCourses(){
+    public ResponseEntity getAllCourses() {
         List<Course> allCourses = courseService.getAllCourses();
         return ResponseEntity.ok(allCourses);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getCourseById(@PathVariable Long id) {
+        Course courseById;
+        try {
+            courseById = courseService.getCourseById(id);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(courseById);
+    }
+
     @PostMapping("/create")
-    public ResponseEntity createNewCourse(@RequestBody CourseDTO course){
+    public ResponseEntity createNewCourse(@RequestBody CourseDTO course) {
         Course respCourse = courseService.create(course);
-        if(respCourse==null){
+        if (respCourse == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Course could not be created successfully");
         }

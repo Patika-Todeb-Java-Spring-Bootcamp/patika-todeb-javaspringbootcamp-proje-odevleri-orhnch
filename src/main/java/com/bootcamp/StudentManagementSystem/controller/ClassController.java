@@ -18,19 +18,30 @@ public class ClassController {
     private ClassService classService;
 
     @GetMapping("/all")
-    public ResponseEntity getAllClasses(){
+    public ResponseEntity getAllClasses() {
         List<Class> allClasses = classService.getAllClasses();
         return ResponseEntity.ok(allClasses);
     }
 
     @PostMapping("/create")
-    public ResponseEntity createNewClass(@RequestBody ClassDTO class1){
+    public ResponseEntity createNewClass(@RequestBody ClassDTO class1) {
         Class respClass = classService.create(class1);
-        if(respClass==null){
+        if (respClass == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Class could not be created successfully");
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(respClass);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getClassById(@PathVariable Long id) {
+        Class classById;
+        try {
+            classById = classService.getClassById(id);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(classById);
     }
 
 }

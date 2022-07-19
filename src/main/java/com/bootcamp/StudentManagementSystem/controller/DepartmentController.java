@@ -23,6 +23,17 @@ public class DepartmentController {
         return ResponseEntity.ok(allDepartments);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getDepartmentById(@PathVariable Long id) {
+        Department departmentById;
+        try {
+            departmentById = departmentService.getDepartmentById(id);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(departmentById);
+    }
+
     @PostMapping("/create")
     public ResponseEntity createNewDepartment(@RequestBody DepartmentDTO department) {
         Department respDepartment = departmentService.create(department);

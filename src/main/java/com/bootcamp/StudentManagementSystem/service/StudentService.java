@@ -5,15 +5,14 @@ import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.model.mapper.StudentMapper;
 import com.bootcamp.StudentManagementSystem.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class StudentService {
-    @Autowired
     private final StudentRepository studentRepository;
 
     public List<Student> getAllStudents() {
@@ -21,7 +20,12 @@ public class StudentService {
         return allStudents;
     }
 
-    public Student create(StudentDTO studentDTO){
+    public Student getStudentById(Long id) {
+        Optional<Student> byId = studentRepository.findById(id);
+        return byId.orElseThrow(() -> new RuntimeException("Student not found!"));
+    }
+
+    public Student create(StudentDTO studentDTO) {
         Student student = StudentMapper.toEntity(studentDTO);
         return studentRepository.save(student);
     }

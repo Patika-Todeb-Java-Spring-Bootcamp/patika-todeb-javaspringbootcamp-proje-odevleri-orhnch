@@ -1,8 +1,6 @@
 package com.bootcamp.StudentManagementSystem.controller;
 
-import com.bootcamp.StudentManagementSystem.model.dto.DepartmentDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
-import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.service.PrelectorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +18,20 @@ public class PrelectorController {
     private PrelectorService prelectorService;
 
     @GetMapping("/all")
-    public ResponseEntity getAllPrelectors(){
+    public ResponseEntity getAllPrelectors() {
         List<Prelector> allPrelectors = prelectorService.getAllPrelectors();
         return ResponseEntity.ok(allPrelectors);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getPrelectorByID(@PathVariable Long id) {
+        Prelector prelectorById;
+        try {
+            prelectorById = prelectorService.getPrelectorById(id);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(prelectorById);
     }
 
     @PostMapping("/create")

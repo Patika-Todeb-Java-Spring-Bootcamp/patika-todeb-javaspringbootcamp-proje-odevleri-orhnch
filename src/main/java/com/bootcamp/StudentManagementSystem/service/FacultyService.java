@@ -5,20 +5,25 @@ import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
 import com.bootcamp.StudentManagementSystem.model.mapper.FacultyMapper;
 import com.bootcamp.StudentManagementSystem.repository.FacultyRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class FacultyService {
-    @Autowired
+
     private final FacultyRepository facultyRepository;
 
     public List<Faculty> getAllFaculties() {
         List<Faculty> allFaculties = facultyRepository.findAll();
         return allFaculties;
+    }
+
+    public Faculty getFacultyById(Long id) {
+        Optional<Faculty> byId = facultyRepository.findById(id);
+        return byId.orElseThrow(() -> new RuntimeException("Faculty not found!"));
     }
 
     public Faculty create(FacultyDTO facultyDTO) {

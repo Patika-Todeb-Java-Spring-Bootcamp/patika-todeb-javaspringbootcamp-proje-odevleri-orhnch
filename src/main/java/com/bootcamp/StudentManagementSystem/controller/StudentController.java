@@ -17,15 +17,26 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping("/all")
-    public ResponseEntity getAllStudents(){
+    public ResponseEntity getAllStudents() {
         List<Student> allStudents = studentService.getAllStudents();
         return ResponseEntity.ok(allStudents);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getStudentByID(@PathVariable Long id) {
+        Student studentById;
+        try {
+            studentById = studentService.getStudentById(id);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(studentById);
+    }
+
     @PostMapping("/create")
-    public ResponseEntity createNewStudent(@RequestBody StudentDTO student){
+    public ResponseEntity createNewStudent(@RequestBody StudentDTO student) {
         Student respStudent = studentService.create(student);
-        if(respStudent==null){
+        if (respStudent == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Student could not be created successfully");
         }

@@ -23,6 +23,17 @@ public class FacultyController {
         return ResponseEntity.ok(allFaculties);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getFacultyByID(@PathVariable Long id) {
+        Faculty facultyById;
+        try {
+            facultyById = facultyService.getFacultyById(id);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(facultyById);
+    }
+
     @PostMapping("/create")
     public ResponseEntity createNewFaculty(@RequestBody FacultyDTO faculty) {
         Faculty respFaculty = facultyService.create(faculty);

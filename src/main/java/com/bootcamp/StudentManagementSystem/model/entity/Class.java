@@ -20,6 +20,7 @@ public class Class {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "department_id")
     private Department department;
 
     @OneToMany(mappedBy = "courseClass", cascade = CascadeType.MERGE)

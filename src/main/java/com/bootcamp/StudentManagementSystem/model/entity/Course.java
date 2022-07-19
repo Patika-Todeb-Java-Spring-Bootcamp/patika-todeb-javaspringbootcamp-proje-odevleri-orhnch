@@ -24,9 +24,11 @@ public class Course {
     private String code;
 
     @ManyToOne
+    @JoinColumn(name = "course_class_id")
     private Class courseClass;
 
     @ManyToOne
+    @JoinColumn(name = "prelector_id")
     private Prelector prelector;
 
     @ManyToMany(mappedBy = "courses", cascade = CascadeType.MERGE)

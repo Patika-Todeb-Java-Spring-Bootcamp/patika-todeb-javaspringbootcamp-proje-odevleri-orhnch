@@ -29,5 +29,6 @@ public class Department {
     private List<Prelector> prelectors;
 
     @ManyToOne
+    @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 }

@@ -21,6 +21,7 @@ public class Prelector {
     private String email;
 
     @ManyToOne
+    @JoinColumn(name = "department_id")
     private Department department;
 
     @OneToMany(mappedBy = "prelector", cascade = CascadeType.MERGE)

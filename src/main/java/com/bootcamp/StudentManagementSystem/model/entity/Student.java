@@ -21,12 +21,23 @@ public class Student {
     private String email;
 
     @ManyToOne
+    @JoinColumn(name = "department_id")
     private Department department;
 
     @ManyToOne
+    @JoinColumn(name = "class_number_id")
     private Class classNumber;
 
     @ManyToMany
+    @JoinTable(
+            name = "students_courses",
+            joinColumns = {
+                    @JoinColumn(name = "student_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "course_id")
+            }
+    )
     private List<Course> courses;
 
 }

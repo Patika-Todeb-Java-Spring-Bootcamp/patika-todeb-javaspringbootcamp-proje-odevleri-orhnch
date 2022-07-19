@@ -29,4 +29,8 @@ public class DepartmentService {
         Department department = DepartmentMapper.toEntity(departmentDTO);
         return departmentRepository.save(department);
     }
+    public void delete(Long id) {
+        getDepartmentById(id);
+        departmentRepository.deleteById(id);
+    }
 }

@@ -30,4 +30,8 @@ public class ClassService {
         Optional<Class> byId = classRepository.findById(id);
         return byId.orElseThrow(() -> new RuntimeException("Class not found!"));
     }
+    public void delete(Long id) {
+        getClassById(id);
+        classRepository.deleteById(id);
+    }
 }

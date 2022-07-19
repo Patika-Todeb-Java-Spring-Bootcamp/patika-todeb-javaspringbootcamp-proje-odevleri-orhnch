@@ -43,4 +43,13 @@ public class DepartmentController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(respDepartment);
     }
+    @DeleteMapping
+    public ResponseEntity deleteCourse(@RequestParam(name = "id") Long id) {
+        try {
+            departmentService.delete(id);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Related Department deleted successfully");
+    }
 }

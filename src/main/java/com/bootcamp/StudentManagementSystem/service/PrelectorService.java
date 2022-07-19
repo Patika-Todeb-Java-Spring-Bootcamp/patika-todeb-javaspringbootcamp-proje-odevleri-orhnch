@@ -29,4 +29,8 @@ public class PrelectorService {
         Prelector prelector = PrelectorMapper.toEntity(prelectorDTO);
         return prelectorRepository.save(prelector);
     }
+    public void delete(Long id) {
+        getPrelectorById(id);
+        prelectorRepository.deleteById(id);
+    }
 }

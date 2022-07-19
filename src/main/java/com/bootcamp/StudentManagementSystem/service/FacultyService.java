@@ -30,4 +30,8 @@ public class FacultyService {
         Faculty faculty = FacultyMapper.toEntity(facultyDTO);
         return facultyRepository.save(faculty);
     }
+    public void delete(Long id) {
+        getFacultyById(id);
+        facultyRepository.deleteById(id);
+    }
 }

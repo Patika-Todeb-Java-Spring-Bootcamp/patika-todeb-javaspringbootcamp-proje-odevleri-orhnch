@@ -42,4 +42,13 @@ public class StudentController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(respStudent);
     }
+    @DeleteMapping
+    public ResponseEntity deleteCourse(@RequestParam(name = "id") Long id) {
+        try {
+            studentService.delete(id);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Related Student deleted successfully");
+    }
 }

@@ -43,5 +43,15 @@ public class ClassController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(classById);
     }
+    //localhost:8080/api/class?id=value
+    @DeleteMapping
+    public ResponseEntity deleteCourse(@RequestParam(name = "id") Long id) {
+        try {
+            classService.delete(id);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Related Class deleted successfully");
+    }
 
 }

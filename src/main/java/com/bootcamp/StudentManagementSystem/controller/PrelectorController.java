@@ -43,4 +43,13 @@ public class PrelectorController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(respPrelector);
     }
+    @DeleteMapping
+    public ResponseEntity deleteCourse(@RequestParam(name = "id") Long id) {
+        try {
+            prelectorService.delete(id);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Related Prelector deleted successfully");
+    }
 }

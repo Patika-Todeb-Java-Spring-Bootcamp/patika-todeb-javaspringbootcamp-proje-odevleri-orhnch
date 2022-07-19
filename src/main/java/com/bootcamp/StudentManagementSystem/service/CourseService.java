@@ -30,4 +30,8 @@ public class CourseService {
         Course course = CourseMapper.toEntity(courseDTO);
         return courseRepository.save(course);
     }
+    public void delete(Long id) {
+        getCourseById(id);
+        courseRepository.deleteById(id);
+    }
 }

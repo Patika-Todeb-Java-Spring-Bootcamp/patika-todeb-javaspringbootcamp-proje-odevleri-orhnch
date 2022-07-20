@@ -1,8 +1,6 @@
 package com.bootcamp.StudentManagementSystem.service;
 
-import com.bootcamp.StudentManagementSystem.model.dto.FacultyDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
-import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
 import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.model.mapper.PrelectorMapper;
 import com.bootcamp.StudentManagementSystem.repository.PrelectorRepository;
@@ -32,10 +30,12 @@ public class PrelectorService {
         Prelector prelector = PrelectorMapper.toEntity(prelectorDTO);
         return prelectorRepository.save(prelector);
     }
+
     public void delete(Long id) {
         getPrelectorById(id);
         prelectorRepository.deleteById(id);
     }
+
     public Prelector update(String email, PrelectorDTO prelector) {
         Optional<Prelector> prelectorByEmail = prelectorRepository.findPrelectorByEmail(email);
         if (!prelectorByEmail.isPresent())

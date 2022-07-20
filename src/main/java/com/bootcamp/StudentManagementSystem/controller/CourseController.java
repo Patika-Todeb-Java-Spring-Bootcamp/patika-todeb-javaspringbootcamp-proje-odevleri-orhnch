@@ -1,8 +1,6 @@
 package com.bootcamp.StudentManagementSystem.controller;
 
-import com.bootcamp.StudentManagementSystem.model.dto.ClassDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.CourseDTO;
-import com.bootcamp.StudentManagementSystem.model.entity.Class;
 import com.bootcamp.StudentManagementSystem.model.entity.Course;
 import com.bootcamp.StudentManagementSystem.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +47,13 @@ public class CourseController {
     @DeleteMapping
     public ResponseEntity deleteCourse(@RequestParam(name = "id") Long id) {
         try {
-           courseService.delete(id);
+            courseService.delete(id);
         } catch (RuntimeException exception) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body("Related Course deleted successfully");
     }
+
     @PutMapping("/{code}")
     public ResponseEntity updateCourse(
             @PathVariable String code,

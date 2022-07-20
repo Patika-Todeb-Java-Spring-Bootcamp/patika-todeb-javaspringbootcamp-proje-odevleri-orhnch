@@ -1,8 +1,6 @@
 package com.bootcamp.StudentManagementSystem.controller;
 
-import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.StudentDTO;
-import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +42,7 @@ public class StudentController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(respStudent);
     }
+
     @DeleteMapping
     public ResponseEntity deleteCourse(@RequestParam(name = "id") Long id) {
         try {
@@ -53,6 +52,7 @@ public class StudentController {
         }
         return ResponseEntity.status(HttpStatus.OK).body("Related Student deleted successfully");
     }
+
     @PutMapping("/{email}")
     public ResponseEntity updateStudent(
             @PathVariable String email,

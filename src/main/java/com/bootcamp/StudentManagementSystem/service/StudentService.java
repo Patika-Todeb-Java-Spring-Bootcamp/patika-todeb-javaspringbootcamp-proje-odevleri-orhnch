@@ -1,8 +1,6 @@
 package com.bootcamp.StudentManagementSystem.service;
 
-import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.StudentDTO;
-import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.model.mapper.StudentMapper;
 import com.bootcamp.StudentManagementSystem.repository.StudentRepository;
@@ -37,6 +35,7 @@ public class StudentService {
         getStudentById(id);
         studentRepository.deleteById(id);
     }
+
     public Student update(String email, StudentDTO student) {
         Optional<Student> studentByEmail = studentRepository.findStudentByEmail(email);
         if (!studentByEmail.isPresent())

@@ -1,8 +1,6 @@
 package com.bootcamp.StudentManagementSystem.service;
 
-import com.bootcamp.StudentManagementSystem.model.dto.ClassDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.CourseDTO;
-import com.bootcamp.StudentManagementSystem.model.entity.Class;
 import com.bootcamp.StudentManagementSystem.model.entity.Course;
 import com.bootcamp.StudentManagementSystem.model.mapper.CourseMapper;
 import com.bootcamp.StudentManagementSystem.repository.CourseRepository;
@@ -33,6 +31,7 @@ public class CourseService {
         Course course = CourseMapper.toEntity(courseDTO);
         return courseRepository.save(course);
     }
+
     public void delete(Long id) {
         getCourseById(id);
         courseRepository.deleteById(id);

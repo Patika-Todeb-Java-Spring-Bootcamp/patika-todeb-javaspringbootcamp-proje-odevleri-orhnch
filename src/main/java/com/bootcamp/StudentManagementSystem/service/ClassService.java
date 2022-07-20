@@ -31,10 +31,12 @@ public class ClassService {
         Optional<Class> byId = classRepository.findById(id);
         return byId.orElseThrow(() -> new RuntimeException("Class not found!"));
     }
+
     public void delete(Long id) {
         getClassById(id);
         classRepository.deleteById(id);
     }
+
     public Class update(String name, ClassDTO class1) {
         Optional<Class> classByName = classRepository.findClassByName(name);
         if (!classByName.isPresent())

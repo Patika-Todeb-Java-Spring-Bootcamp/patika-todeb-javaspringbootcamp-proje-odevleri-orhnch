@@ -1,8 +1,6 @@
 package com.bootcamp.StudentManagementSystem.service;
 
-import com.bootcamp.StudentManagementSystem.model.dto.DepartmentDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.FacultyDTO;
-import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
 import com.bootcamp.StudentManagementSystem.model.mapper.FacultyMapper;
 import com.bootcamp.StudentManagementSystem.repository.FacultyRepository;
@@ -33,10 +31,12 @@ public class FacultyService {
         Faculty faculty = FacultyMapper.toEntity(facultyDTO);
         return facultyRepository.save(faculty);
     }
+
     public void delete(Long id) {
         getFacultyById(id);
         facultyRepository.deleteById(id);
     }
+
     public Faculty update(String name, FacultyDTO faculty) {
         Optional<Faculty> facultyByName = facultyRepository.findFacultyByName(name);
         if (!facultyByName.isPresent())

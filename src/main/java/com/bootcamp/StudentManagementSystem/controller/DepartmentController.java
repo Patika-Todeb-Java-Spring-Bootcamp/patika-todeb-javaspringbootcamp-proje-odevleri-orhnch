@@ -1,8 +1,6 @@
 package com.bootcamp.StudentManagementSystem.controller;
 
-import com.bootcamp.StudentManagementSystem.model.dto.CourseDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.DepartmentDTO;
-import com.bootcamp.StudentManagementSystem.model.entity.Course;
 import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +43,7 @@ public class DepartmentController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(respDepartment);
     }
+
     @DeleteMapping
     public ResponseEntity deleteCourse(@RequestParam(name = "id") Long id) {
         try {
@@ -54,6 +53,7 @@ public class DepartmentController {
         }
         return ResponseEntity.status(HttpStatus.OK).body("Related Department deleted successfully");
     }
+
     @PutMapping("/{name}")
     public ResponseEntity updateDepartment(
             @PathVariable String name,

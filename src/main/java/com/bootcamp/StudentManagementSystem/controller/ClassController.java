@@ -43,6 +43,7 @@ public class ClassController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(classById);
     }
+
     //localhost:8080/api/class?id=value
     @DeleteMapping
     public ResponseEntity deleteCourse(@RequestParam(name = "id") Long id) {

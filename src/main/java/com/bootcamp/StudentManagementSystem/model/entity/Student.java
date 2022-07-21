@@ -22,12 +22,13 @@ public class Student {
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "class_number_id")
+    @JoinColumn(name = "class_number_id", referencedColumnName = "id")
     private Class classNumber;
+
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

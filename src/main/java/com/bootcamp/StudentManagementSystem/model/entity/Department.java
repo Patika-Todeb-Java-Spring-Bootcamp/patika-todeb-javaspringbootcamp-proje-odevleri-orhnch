@@ -29,6 +29,6 @@ public class Department {
     private List<Prelector> prelectors;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "faculty_id")
+    @JoinColumn(name = "faculty_id", referencedColumnName = "id")
     private Faculty faculty;
 }

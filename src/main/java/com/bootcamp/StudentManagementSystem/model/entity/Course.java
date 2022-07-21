@@ -20,9 +20,11 @@ public class Course {
     private Long id;
 
     private String title;
-    private int quota;
-    private int numberOfStudentChoseCourse;
+    private Integer quota;
+    //private Integer numberOfStudentChoseCourse;
     private String code;
+    private Integer grade;
+    private String letterGrade;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_class_id")
@@ -31,6 +33,7 @@ public class Course {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prelector_id")
     private Prelector prelector;
+
 
     @ManyToMany(mappedBy = "courses", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Student> students;

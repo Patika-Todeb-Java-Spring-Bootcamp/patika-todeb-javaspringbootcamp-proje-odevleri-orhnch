@@ -50,7 +50,12 @@ public class StudentService {
         if (!StringUtils.isEmpty(student.getLastName())) {
             updatedStudent.setLastName(student.getLastName());
         }
-
+        if (!StringUtils.isEmpty(student.getDepartment())) {
+            updatedStudent.setDepartment(student.getDepartment());
+        }
+        if (!StringUtils.isEmpty(student.getClassNumber())) {
+            updatedStudent.setClassNumber(student.getClassNumber());
+        }
         return studentRepository.save(updatedStudent);
     }
 }

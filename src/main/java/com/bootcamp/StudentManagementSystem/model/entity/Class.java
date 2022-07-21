@@ -20,7 +20,7 @@ public class Class {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
 
     @OneToMany(mappedBy = "courseClass", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)

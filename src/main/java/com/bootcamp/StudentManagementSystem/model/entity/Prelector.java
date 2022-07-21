@@ -21,7 +21,7 @@ public class Prelector {
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
 
     @OneToMany(mappedBy = "prelector", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)

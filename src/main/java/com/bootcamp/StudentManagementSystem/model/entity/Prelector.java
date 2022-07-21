@@ -20,10 +20,10 @@ public class Prelector {
     private String lastName;
     private String email;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @OneToMany(mappedBy = "prelector", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "prelector", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Course> courses;
 }

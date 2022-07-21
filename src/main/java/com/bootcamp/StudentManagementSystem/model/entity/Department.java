@@ -19,16 +19,16 @@ public class Department {
 
     private String name;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
     private List<Class> classes;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Student> students;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Prelector> prelectors;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 }

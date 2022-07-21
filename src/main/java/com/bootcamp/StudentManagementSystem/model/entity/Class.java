@@ -19,13 +19,13 @@ public class Class {
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @OneToMany(mappedBy = "courseClass", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "courseClass", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Course> courses;
 
-    @OneToMany(mappedBy = "classNumber", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "classNumber", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Student> students;
 }

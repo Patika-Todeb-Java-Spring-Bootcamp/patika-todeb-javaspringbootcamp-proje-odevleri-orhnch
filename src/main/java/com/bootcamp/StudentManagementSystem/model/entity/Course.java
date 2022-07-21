@@ -3,6 +3,7 @@ package com.bootcamp.StudentManagementSystem.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,15 +24,15 @@ public class Course {
     private int numberOfStudentChoseCourse;
     private String code;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_class_id")
     private Class courseClass;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prelector_id")
     private Prelector prelector;
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Student> students;
 
 

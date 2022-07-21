@@ -19,7 +19,7 @@ public class Faculty {
 
     private String name;
 
-    @OneToMany(mappedBy = "faculty", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "faculty", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Department> departments;
 
 }

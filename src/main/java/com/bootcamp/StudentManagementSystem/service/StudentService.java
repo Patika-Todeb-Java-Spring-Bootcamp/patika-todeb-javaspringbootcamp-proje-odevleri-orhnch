@@ -40,17 +40,17 @@ public class StudentService {
         Optional<Student> studentByEmail = studentRepository.findStudentByEmail(email);
         if (!studentByEmail.isPresent())
             return null;
-        Student updatedPrelector = studentByEmail.get();
+        Student updatedStudent = studentByEmail.get();
         if (!StringUtils.isEmpty(student.getEmail())) {
-            updatedPrelector.setEmail(student.getEmail());
+            updatedStudent.setEmail(student.getEmail());
         }
         if (!StringUtils.isEmpty(student.getFirstName())) {
-            updatedPrelector.setFirstName(student.getFirstName());
+            updatedStudent.setFirstName(student.getFirstName());
         }
         if (!StringUtils.isEmpty(student.getLastName())) {
-            updatedPrelector.setLastName(student.getLastName());
+            updatedStudent.setLastName(student.getLastName());
         }
 
-        return studentRepository.save(updatedPrelector);
+        return studentRepository.save(updatedStudent);
     }
 }

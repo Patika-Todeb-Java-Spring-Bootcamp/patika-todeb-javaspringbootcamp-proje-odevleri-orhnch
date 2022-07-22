@@ -48,4 +48,7 @@ public class FacultyService {
 
         return facultyRepository.save(updatedFaculty);
     }
+    public void deleteAll(){
+        facultyRepository.deleteAll();
+    }
 }

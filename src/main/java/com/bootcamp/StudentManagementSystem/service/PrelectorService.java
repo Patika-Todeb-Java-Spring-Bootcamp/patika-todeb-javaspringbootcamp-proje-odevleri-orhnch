@@ -53,4 +53,8 @@ public class PrelectorService {
 
         return prelectorRepository.save(updatedPrelector);
     }
+
+    public void deleteAll(){
+        prelectorRepository.deleteAll();
+    }
 }

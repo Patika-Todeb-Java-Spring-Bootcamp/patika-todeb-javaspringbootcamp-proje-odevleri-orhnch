@@ -45,7 +45,7 @@ public class FacultyController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteCourse(@RequestParam(name = "id") Long id) {
+    public ResponseEntity deleteFaculty(@RequestParam(name = "id") Long id) {
         try {
             facultyService.delete(id);
         } catch (RuntimeException exception) {
@@ -55,7 +55,7 @@ public class FacultyController {
     }
 
     @PutMapping("/{name}")
-    public ResponseEntity updateDepartment(
+    public ResponseEntity updateFaculty(
             @PathVariable String name,
             @RequestBody FacultyDTO faculty) {
         Faculty update = facultyService.update(name, faculty);
@@ -64,5 +64,14 @@ public class FacultyController {
                     .body("Faculty could not be updated successfully");
         }
         return ResponseEntity.status(HttpStatus.OK).body(update);
+    }
+    @DeleteMapping("/all")
+    public ResponseEntity deleteAllFaculties() {
+        try {
+            facultyService.deleteAll();
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("All faculties were deleted successfully");
     }
 }

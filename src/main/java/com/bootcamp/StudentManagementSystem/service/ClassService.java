@@ -51,4 +51,8 @@ public class ClassService {
 
         return classRepository.save(updatedClass);
     }
+
+    public void deleteAll(){
+        classRepository.deleteAll();
+    }
 }

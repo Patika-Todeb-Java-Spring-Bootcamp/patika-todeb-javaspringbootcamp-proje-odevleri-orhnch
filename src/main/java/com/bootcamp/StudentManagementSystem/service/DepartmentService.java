@@ -49,4 +49,8 @@ public class DepartmentService {
         }
         return departmentRepository.save(updatedDepartment);
     }
+
+    public void deleteAll(){
+        departmentRepository.deleteAll();
+    }
 }

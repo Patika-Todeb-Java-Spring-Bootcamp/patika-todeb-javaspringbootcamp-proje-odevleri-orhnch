@@ -46,7 +46,7 @@ public class ClassController {
 
     //localhost:8080/api/class?id=value
     @DeleteMapping
-    public ResponseEntity deleteCourse(@RequestParam(name = "id") Long id) {
+    public ResponseEntity deleteClass(@RequestParam(name = "id") Long id) {
         try {
             classService.delete(id);
         } catch (RuntimeException exception) {
@@ -65,6 +65,15 @@ public class ClassController {
                     .body("Class could not be updated successfully");
         }
         return ResponseEntity.status(HttpStatus.OK).body(update);
+    }
+    @DeleteMapping("/all")
+    public ResponseEntity deleteAllClasses() {
+        try {
+            classService.deleteAll();
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("All classes were deleted successfully");
     }
 
 }

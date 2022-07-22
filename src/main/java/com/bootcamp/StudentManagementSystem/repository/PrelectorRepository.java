@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface PrelectorRepository extends JpaRepository<Prelector, Long> {
     Optional<Prelector> findPrelectorByEmail(String email);
+
 }

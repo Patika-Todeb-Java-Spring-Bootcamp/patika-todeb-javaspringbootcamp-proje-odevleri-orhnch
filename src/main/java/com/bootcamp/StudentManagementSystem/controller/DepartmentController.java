@@ -45,7 +45,7 @@ public class DepartmentController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteCourse(@RequestParam(name = "id") Long id) {
+    public ResponseEntity deleteDepartment(@RequestParam(name = "id") Long id) {
         try {
             departmentService.delete(id);
         } catch (RuntimeException exception) {
@@ -64,5 +64,14 @@ public class DepartmentController {
                     .body("Department could not be updated successfully");
         }
         return ResponseEntity.status(HttpStatus.OK).body(update);
+    }
+    @DeleteMapping("/all")
+    public ResponseEntity deleteAllDepartments() {
+        try {
+            departmentService.deleteAll();
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("All departments were deleted successfully");
     }
 }

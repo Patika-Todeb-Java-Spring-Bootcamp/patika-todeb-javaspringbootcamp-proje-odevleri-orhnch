@@ -44,7 +44,7 @@ public class StudentController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteCourse(@RequestParam(name = "id") Long id) {
+    public ResponseEntity deleteStudent(@RequestParam(name = "id") Long id) {
         try {
             studentService.delete(id);
         } catch (RuntimeException exception) {
@@ -63,5 +63,14 @@ public class StudentController {
                     .body("Prelector could not be updated successfully");
         }
         return ResponseEntity.status(HttpStatus.OK).body(update);
+    }
+    @DeleteMapping("/all")
+    public ResponseEntity deleteAllStudents() {
+        try {
+            studentService.deleteAll();
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("All students were deleted successfully");
     }
 }

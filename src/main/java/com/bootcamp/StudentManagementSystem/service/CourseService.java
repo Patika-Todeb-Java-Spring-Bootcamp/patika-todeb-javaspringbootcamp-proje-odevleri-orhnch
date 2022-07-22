@@ -68,4 +68,8 @@ public class CourseService {
         return courseRepository.save(updatedCourse);
     }
 
+    public void deleteAll(){
+        courseRepository.deleteAll();
+    }
+
 }

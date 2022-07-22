@@ -58,4 +58,8 @@ public class StudentService {
         }
         return studentRepository.save(updatedStudent);
     }
+
+    public void deleteAll(){
+        studentRepository.deleteAll();
+    }
 }

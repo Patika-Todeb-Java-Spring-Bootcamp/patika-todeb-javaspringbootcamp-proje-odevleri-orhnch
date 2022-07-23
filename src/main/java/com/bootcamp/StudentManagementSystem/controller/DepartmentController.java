@@ -65,6 +65,7 @@ public class DepartmentController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(update);
     }
+
     @DeleteMapping("/all")
     public ResponseEntity deleteAllDepartments() {
         try {
@@ -73,5 +74,11 @@ public class DepartmentController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body("All departments were deleted successfully");
+    }
+
+    @GetMapping("get/{name}")
+    public ResponseEntity getAllByNameContainingIgnoreCase(@PathVariable String name) {
+        List<Department> allDepartments = departmentService.getAllByNameContainingIgnoreCase(name);
+        return ResponseEntity.ok(allDepartments);
     }
 }

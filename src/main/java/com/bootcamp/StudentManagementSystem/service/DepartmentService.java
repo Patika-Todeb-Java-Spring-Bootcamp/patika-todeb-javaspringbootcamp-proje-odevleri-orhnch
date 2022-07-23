@@ -50,7 +50,12 @@ public class DepartmentService {
         return departmentRepository.save(updatedDepartment);
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         departmentRepository.deleteAll();
+    }
+
+    public List<Department> getAllByNameContainingIgnoreCase(String name) {
+        List<Department> allDepartments = departmentRepository.getAllByNameContainingIgnoreCase(name);
+        return allDepartments;
     }
 }

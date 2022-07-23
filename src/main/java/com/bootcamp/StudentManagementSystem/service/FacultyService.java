@@ -2,6 +2,7 @@ package com.bootcamp.StudentManagementSystem.service;
 
 import com.bootcamp.StudentManagementSystem.model.dto.FacultyDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
+import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.model.mapper.FacultyMapper;
 import com.bootcamp.StudentManagementSystem.repository.FacultyRepository;
 import lombok.RequiredArgsConstructor;
@@ -50,5 +51,10 @@ public class FacultyService {
     }
     public void deleteAll(){
         facultyRepository.deleteAll();
+    }
+
+    public List<Faculty> getAllByNameContainingIgnoreCase(String name) {
+        List<Faculty> allFaculties = facultyRepository.getAllByNameContainingIgnoreCase(name);
+        return allFaculties;
     }
 }

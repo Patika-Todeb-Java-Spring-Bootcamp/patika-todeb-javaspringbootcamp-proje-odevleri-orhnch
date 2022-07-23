@@ -3,6 +3,7 @@ package com.bootcamp.StudentManagementSystem.controller;
 
 import com.bootcamp.StudentManagementSystem.model.dto.FacultyDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
+import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,5 +74,10 @@ public class FacultyController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body("All faculties were deleted successfully");
+    }
+    @GetMapping("get/{name}")
+    public ResponseEntity getAllByNameContainingIgnoreCase(@PathVariable String name) {
+        List<Faculty> allFaculties = facultyService.getAllByNameContainingIgnoreCase(name);
+        return ResponseEntity.ok(allFaculties);
     }
 }

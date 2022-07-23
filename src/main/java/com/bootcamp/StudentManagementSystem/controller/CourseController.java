@@ -75,4 +75,10 @@ public class CourseController {
         }
         return ResponseEntity.status(HttpStatus.OK).body("All courses were deleted successfully");
     }
+
+    @GetMapping("get/{title}")
+    public ResponseEntity getAllByTitleContainingIgnoreCase(@PathVariable String title) {
+        List<Course> allCourses = courseService.getAllByTitleContainingIgnoreCase(title);
+        return ResponseEntity.ok(allCourses);
+    }
 }

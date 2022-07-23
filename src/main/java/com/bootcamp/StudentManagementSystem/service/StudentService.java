@@ -5,6 +5,7 @@ import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.model.mapper.StudentMapper;
 import com.bootcamp.StudentManagementSystem.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -62,4 +63,9 @@ public class StudentService {
     public void deleteAll(){
         studentRepository.deleteAll();
     }
+    public List<Student> getAllByFirstNameContainingIgnoreCase(String firstName) {
+        List<Student> allStudents = studentRepository.getAllByFirstNameContainingIgnoreCase(firstName);
+        return allStudents;
+    }
+
 }

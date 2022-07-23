@@ -64,6 +64,7 @@ public class StudentController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(update);
     }
+
     @DeleteMapping("/all")
     public ResponseEntity deleteAllStudents() {
         try {
@@ -73,4 +74,11 @@ public class StudentController {
         }
         return ResponseEntity.status(HttpStatus.OK).body("All students were deleted successfully");
     }
+
+    @GetMapping("get/{firstName}")
+    public ResponseEntity getAllByFirstNameContainingIgnoreCase(@PathVariable String firstName) {
+        List<Student> allStudents = studentService.getAllByFirstNameContainingIgnoreCase(firstName);
+        return ResponseEntity.ok(allStudents);
+    }
+
 }

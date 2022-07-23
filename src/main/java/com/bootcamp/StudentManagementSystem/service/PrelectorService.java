@@ -2,6 +2,7 @@ package com.bootcamp.StudentManagementSystem.service;
 
 import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
+import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.model.mapper.PrelectorMapper;
 import com.bootcamp.StudentManagementSystem.repository.PrelectorRepository;
 import lombok.RequiredArgsConstructor;
@@ -56,5 +57,10 @@ public class PrelectorService {
 
     public void deleteAll(){
         prelectorRepository.deleteAll();
+    }
+
+    public List<Prelector> getAllByFirstNameContainingIgnoreCase(String firstName) {
+        List<Prelector> allPrelectors = prelectorRepository.getAllByFirstNameContainingIgnoreCase(firstName);
+        return allPrelectors;
     }
 }

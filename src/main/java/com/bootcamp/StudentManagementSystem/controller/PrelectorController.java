@@ -2,6 +2,7 @@ package com.bootcamp.StudentManagementSystem.controller;
 
 import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
+import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.service.PrelectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,5 +74,11 @@ public class PrelectorController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body("All prelectors were deleted successfully");
+    }
+
+    @GetMapping("get/{firstName}")
+    public ResponseEntity getAllByFirstNameContainingIgnoreCase(@PathVariable String firstName) {
+        List<Prelector> allPrelectors = prelectorService.getAllByFirstNameContainingIgnoreCase(firstName);
+        return ResponseEntity.ok(allPrelectors);
     }
 }

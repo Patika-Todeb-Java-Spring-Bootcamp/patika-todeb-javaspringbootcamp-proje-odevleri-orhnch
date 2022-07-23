@@ -2,7 +2,6 @@ package com.bootcamp.StudentManagementSystem.service;
 
 import com.bootcamp.StudentManagementSystem.model.dto.FacultyDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
-import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.model.mapper.FacultyMapper;
 import com.bootcamp.StudentManagementSystem.repository.FacultyRepository;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +48,8 @@ public class FacultyService {
 
         return facultyRepository.save(updatedFaculty);
     }
-    public void deleteAll(){
+
+    public void deleteAll() {
         facultyRepository.deleteAll();
     }
 

@@ -9,8 +9,6 @@ public class StudentMapper {
         studentDTO.setFirstName(student.getFirstName());
         studentDTO.setLastName(student.getLastName());
         studentDTO.setEmail(student.getEmail());
-        studentDTO.setDepartment(student.getDepartment());
-        studentDTO.setClassNumber(student.getClassNumber());
         return studentDTO;
     }
 
@@ -19,8 +17,6 @@ public class StudentMapper {
         student.setFirstName(studentDTO.getFirstName());
         student.setLastName(studentDTO.getLastName());
         student.setEmail(studentDTO.getEmail());
-        student.setDepartment(studentDTO.getDepartment());
-        student.setClassNumber(studentDTO.getClassNumber());
         return student;
     }
 }

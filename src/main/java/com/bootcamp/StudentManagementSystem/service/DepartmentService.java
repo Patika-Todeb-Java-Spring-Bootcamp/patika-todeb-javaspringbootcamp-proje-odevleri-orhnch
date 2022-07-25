@@ -44,9 +44,7 @@ public class DepartmentService {
         if (!StringUtils.isEmpty(department.getName())) {
             updatedDepartment.setName(department.getName());
         }
-        if (!StringUtils.isEmpty(department.getFaculty())) {
-            updatedDepartment.setFaculty(department.getFaculty());
-        }
+
         return departmentRepository.save(updatedDepartment);
     }
 

@@ -10,5 +10,4 @@ public class PrelectorDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private Department department;
 }

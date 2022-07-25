@@ -37,18 +37,14 @@ public class ClassService {
         classRepository.deleteById(id);
     }
 
-    public Class update(String name, ClassDTO class1) {
-        Optional<Class> classByName = classRepository.findClassByName(name);
-        if (!classByName.isPresent())
+    public Class update(Integer level, ClassDTO class1) {
+        Optional<Class> classByLevel = classRepository.findClassByLevel(level);
+        if (!classByLevel.isPresent())
             return null;
-        Class updatedClass = classByName.get();
-        if (!StringUtils.isEmpty(class1.getName())) {
-            updatedClass.setName(class1.getName());
+        Class updatedClass = classByLevel.get();
+        if (!StringUtils.isEmpty(class1.getLevel())) {
+            updatedClass.setLevel(class1.getLevel());
         }
-        if (!StringUtils.isEmpty(class1.getDepartment())) {
-            updatedClass.setDepartment(class1.getDepartment());
-        }
-
         return classRepository.save(updatedClass);
     }
 

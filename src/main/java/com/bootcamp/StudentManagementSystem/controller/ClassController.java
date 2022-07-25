@@ -55,11 +55,11 @@ public class ClassController {
         return ResponseEntity.status(HttpStatus.OK).body("Related Class deleted successfully");
     }
 
-    @PutMapping("/{name}")
+    @PutMapping("/{level}")
     public ResponseEntity updateClass(
-            @PathVariable String name,
+            @PathVariable Integer level,
             @RequestBody ClassDTO class1) {
-        Class update = classService.update(name, class1);
+        Class update = classService.update(level, class1);
         if (update == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Class could not be updated successfully");

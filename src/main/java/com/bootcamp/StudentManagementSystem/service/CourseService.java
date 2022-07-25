@@ -51,17 +51,11 @@ public class CourseService {
         if (!StringUtils.isEmpty(course.getLetterGrade())) {
             updatedCourse.setLetterGrade(course.getLetterGrade());
         }
-        if (!StringUtils.isEmpty(course.getCourseClass())) {
-            updatedCourse.setCourseClass(updatedCourse.getCourseClass());
-        }
         if (course.getQuota() >= 0) {
             updatedCourse.setQuota(course.getQuota());
         }
         if (course.getGrade() >= 0) {
             updatedCourse.setGrade(course.getGrade());
-        }
-        if (!StringUtils.isEmpty(course.getPrelector())) {
-            updatedCourse.setPrelector(course.getPrelector());
         }
 
         return courseRepository.save(updatedCourse);

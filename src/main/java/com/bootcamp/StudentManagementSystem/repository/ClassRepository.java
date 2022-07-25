@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ClassRepository extends JpaRepository<Class, Long> {
-    Optional<Class> findClassByName(String title);
+    Optional<Class> findClassByLevel(Integer level);
 }

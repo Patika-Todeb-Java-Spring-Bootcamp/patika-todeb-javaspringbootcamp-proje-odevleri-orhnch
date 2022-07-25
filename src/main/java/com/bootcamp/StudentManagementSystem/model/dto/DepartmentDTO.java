@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class DepartmentDTO {
     private String name;
-    private Faculty faculty;
+
 }

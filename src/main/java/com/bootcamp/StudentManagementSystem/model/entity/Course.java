@@ -1,21 +1,24 @@
 package com.bootcamp.StudentManagementSystem.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/*@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")*/
 @Data
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name= "course")
+@Table(name = "course")
 public class Course implements Serializable {
 
     @Id
@@ -29,10 +32,12 @@ public class Course implements Serializable {
     private Integer grade;
     private String letterGrade;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_class_id")
     private Class courseClass;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prelector_id")
     private Prelector prelector;
@@ -40,7 +45,6 @@ public class Course implements Serializable {
 
     @ManyToMany(mappedBy = "courses", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Student> students;
-
 
 
 }

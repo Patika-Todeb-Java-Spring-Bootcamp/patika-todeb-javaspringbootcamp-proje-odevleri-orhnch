@@ -9,7 +9,6 @@ public class PrelectorMapper {
         prelectorDTO.setFirstName(prelector.getFirstName());
         prelectorDTO.setLastName(prelector.getLastName());
         prelectorDTO.setEmail(prelector.getEmail());
-        prelectorDTO.setDepartment(prelector.getDepartment());
         return prelectorDTO;
     }
     public static Prelector toEntity(PrelectorDTO prelectorDTO){
@@ -17,7 +16,6 @@ public class PrelectorMapper {
         prelector.setFirstName(prelectorDTO.getFirstName());
         prelector.setLastName(prelectorDTO.getLastName());
         prelector.setEmail(prelectorDTO.getEmail());
-        prelector.setDepartment(prelectorDTO.getDepartment());
         return prelector;
     }
 }

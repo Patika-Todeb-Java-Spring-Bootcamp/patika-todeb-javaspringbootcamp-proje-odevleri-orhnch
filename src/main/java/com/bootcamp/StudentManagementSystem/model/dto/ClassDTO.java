@@ -7,6 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClassDTO {
-    private String name;
-    private Department department;
+    private Integer level;
 }

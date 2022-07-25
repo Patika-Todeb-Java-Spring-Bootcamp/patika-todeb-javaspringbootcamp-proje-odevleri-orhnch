@@ -11,8 +11,6 @@ public class CourseDTO {
     private String title;
     private Integer quota;
     private String code;
-    private Class courseClass;
-    private Prelector prelector;
     private String letterGrade;
     private Integer grade;
 }

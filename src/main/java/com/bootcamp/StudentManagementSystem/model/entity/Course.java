@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 /*@JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -43,8 +42,8 @@ public class Course implements Serializable {
     private Prelector prelector;
 
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    private List<Student> students;
+    /*@ManyToMany(mappedBy = "courses", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private List<Student> students;*/
 
 
 }

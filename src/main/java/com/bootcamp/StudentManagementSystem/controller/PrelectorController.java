@@ -1,8 +1,8 @@
 package com.bootcamp.StudentManagementSystem.controller;
 
 import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
+import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
-import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.service.PrelectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,6 +66,7 @@ public class PrelectorController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(update);
     }
+
     @DeleteMapping("/all")
     public ResponseEntity deleteAllCourses() {
         try {
@@ -80,5 +81,17 @@ public class PrelectorController {
     public ResponseEntity getAllByFirstNameContainingIgnoreCase(@PathVariable String firstName) {
         List<Prelector> allPrelectors = prelectorService.getAllByFirstNameContainingIgnoreCase(firstName);
         return ResponseEntity.ok(allPrelectors);
+    }
+
+    @PutMapping("add/department/{id}")
+    public ResponseEntity addDepartmentToPrelector(
+            @PathVariable Long id,
+            @RequestBody Department department) {
+        Prelector addedDepartment = prelectorService.addDepartmentToPrelector(id, department);
+        if (addedDepartment == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Related Department could not be added to related Prelector successfully");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Related Department was added to related Prelector successfully");
     }
 }

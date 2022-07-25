@@ -2,6 +2,7 @@ package com.bootcamp.StudentManagementSystem.controller;
 
 import com.bootcamp.StudentManagementSystem.model.dto.DepartmentDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Department;
+import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
 import com.bootcamp.StudentManagementSystem.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -80,5 +81,17 @@ public class DepartmentController {
     public ResponseEntity getAllByNameContainingIgnoreCase(@PathVariable String name) {
         List<Department> allDepartments = departmentService.getAllByNameContainingIgnoreCase(name);
         return ResponseEntity.ok(allDepartments);
+    }
+
+    @PutMapping("add/faculty/{id}")
+    public ResponseEntity addFacultyToDepartment(
+            @PathVariable Long id,
+            @RequestBody Faculty faculty) {
+        Department addedFaculty = departmentService.addFacultyToDepartment(id, faculty);
+        if (addedFaculty == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Related Faculty could not be added to related Department successfully");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Related Faculty was added to related Department successfully");
     }
 }

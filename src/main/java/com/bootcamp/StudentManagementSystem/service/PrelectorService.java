@@ -1,9 +1,11 @@
 package com.bootcamp.StudentManagementSystem.service;
 
 import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
+import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.model.mapper.PrelectorMapper;
+import com.bootcamp.StudentManagementSystem.repository.DepartmentRepository;
 import com.bootcamp.StudentManagementSystem.repository.PrelectorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PrelectorService {
     private final PrelectorRepository prelectorRepository;
+    private final DepartmentRepository departmentRepository;
 
     public List<Prelector> getAllPrelectors() {
         List<Prelector> allPrelectors = prelectorRepository.findAll();
@@ -62,5 +65,16 @@ public class PrelectorService {
     public List<Prelector> getAllByFirstNameContainingIgnoreCase(String firstName) {
         List<Prelector> allPrelectors = prelectorRepository.getAllByFirstNameContainingIgnoreCase(firstName);
         return allPrelectors;
+    }
+
+    public Prelector addDepartmentToPrelector (Long id, Department department){
+        Prelector prelector = getPrelectorById(id);
+        Optional<Department> departmentById = departmentRepository.findById(department.getId());
+        if(!departmentById.isPresent()){
+            return null;
+        }
+        Department addDepartment = departmentById.get();
+        prelector.setDepartment(addDepartment);
+        return prelectorRepository.save(prelector);
     }
 }

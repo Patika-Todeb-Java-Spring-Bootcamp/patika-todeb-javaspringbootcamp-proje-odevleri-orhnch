@@ -2,8 +2,10 @@ package com.bootcamp.StudentManagementSystem.service;
 
 import com.bootcamp.StudentManagementSystem.model.dto.DepartmentDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Department;
+import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
 import com.bootcamp.StudentManagementSystem.model.mapper.DepartmentMapper;
 import com.bootcamp.StudentManagementSystem.repository.DepartmentRepository;
+import com.bootcamp.StudentManagementSystem.repository.FacultyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,6 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DepartmentService {
     private final DepartmentRepository departmentRepository;
+    private final FacultyRepository facultyRepository;
 
     public List<Department> getAllDepartments() {
         List<Department> allDepartments = departmentRepository.findAll();
@@ -55,5 +58,16 @@ public class DepartmentService {
     public List<Department> getAllByNameContainingIgnoreCase(String name) {
         List<Department> allDepartments = departmentRepository.getAllByNameContainingIgnoreCase(name);
         return allDepartments;
+    }
+
+    public Department addFacultyToDepartment(Long id, Faculty faculty) {
+        Department department = getDepartmentById(id);
+        Optional<Faculty> facultyById = facultyRepository.findById(faculty.getId());
+        if (!facultyById.isPresent()) {
+            return null;
+        }
+        Faculty addFaculty = facultyById.get();
+        department.setFaculty(addFaculty);
+        return departmentRepository.save(department);
     }
 }

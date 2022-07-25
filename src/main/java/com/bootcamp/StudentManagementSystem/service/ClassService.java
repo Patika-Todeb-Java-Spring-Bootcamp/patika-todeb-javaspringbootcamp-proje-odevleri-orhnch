@@ -2,8 +2,10 @@ package com.bootcamp.StudentManagementSystem.service;
 
 import com.bootcamp.StudentManagementSystem.model.dto.ClassDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Class;
+import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.mapper.ClassMapper;
 import com.bootcamp.StudentManagementSystem.repository.ClassRepository;
+import com.bootcamp.StudentManagementSystem.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class ClassService {
 
     private final ClassRepository classRepository;
+
+    private final DepartmentRepository departmentRepository;
 
     public List<Class> getAllClasses() {
         List<Class> allClasses = classRepository.findAll();
@@ -48,7 +52,18 @@ public class ClassService {
         return classRepository.save(updatedClass);
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         classRepository.deleteAll();
+    }
+
+    public Class addDepartmentToClass(Long id, Department department) {
+        Class class1 = getClassById(id);
+        Optional<Department> departmentById = departmentRepository.findById(department.getId());
+        if (!departmentById.isPresent()) {
+            return null;
+        }
+        Department addDepartment = departmentById.get();
+        class1.setDepartment(addDepartment);
+        return classRepository.save(class1);
     }
 }

@@ -76,10 +76,12 @@ public class StudentService {
     public Student addClassToStudent(Long id, Class class1) {
         Student student = getStudentById(id);
         Optional<Class> classById = classRepository.findById(class1.getId());
+        ///
         if (!classById.isPresent()) {
             return null;
         }
         Class addClass = classById.get();
+        // Class addClass = classById.orElse(null);
         student.setClassNumber(addClass);
         return studentRepository.save(student);
     }
@@ -91,7 +93,7 @@ public class StudentService {
             return null;
         }
         Department addDepartment = departmentById.get();
-        student.setDepartment(department);
+        student.setDepartment(addDepartment);
         return studentRepository.save(student);
     }
 

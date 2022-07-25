@@ -1,7 +1,9 @@
 package com.bootcamp.StudentManagementSystem.controller;
 
 import com.bootcamp.StudentManagementSystem.model.dto.CourseDTO;
+import com.bootcamp.StudentManagementSystem.model.entity.Class;
 import com.bootcamp.StudentManagementSystem.model.entity.Course;
+import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -80,5 +82,29 @@ public class CourseController {
     public ResponseEntity getAllByTitleContainingIgnoreCase(@PathVariable String title) {
         List<Course> allCourses = courseService.getAllByTitleContainingIgnoreCase(title);
         return ResponseEntity.ok(allCourses);
+    }
+
+    @PutMapping("add/class/{id}")
+    public ResponseEntity addClassToCourse(
+            @PathVariable Long id,
+            @RequestBody Class class1) {
+        Course addedClass = courseService.addClassToCourse(id, class1);
+        if (addedClass == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Related Class could not be added to related Course successfully");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Related Class was added to related Course successfully");
+    }
+
+    @PutMapping("add/prelector/{id}")
+    public ResponseEntity addPrelectorToCourse(
+            @PathVariable Long id,
+            @RequestBody Prelector prelector) {
+        Course addedPrelector = courseService.addPrelectorToCourse(id, prelector);
+        if (addedPrelector == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Related Prelector could not be added to related Course successfully");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Related Prelector was added to related Course successfully");
     }
 }

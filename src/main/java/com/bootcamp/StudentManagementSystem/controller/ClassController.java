@@ -2,6 +2,7 @@ package com.bootcamp.StudentManagementSystem.controller;
 
 import com.bootcamp.StudentManagementSystem.model.dto.ClassDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Class;
+import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,6 +67,7 @@ public class ClassController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(update);
     }
+
     @DeleteMapping("/all")
     public ResponseEntity deleteAllClasses() {
         try {
@@ -74,6 +76,19 @@ public class ClassController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body("All classes were deleted successfully");
+    }
+
+    @PutMapping("add/department/{id}")
+    public ResponseEntity addDepartmentToClass(
+            @PathVariable Long id,
+            @RequestBody Department department) {
+        Class addedDepartment = classService.addDepartmentToClass(id, department);
+        if (addedDepartment == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Related Department could not be added to related Class successfully");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body("Related Department was added to related Class successfully");
     }
 
 }

@@ -1,6 +1,9 @@
 package com.bootcamp.StudentManagementSystem.controller;
 
 import com.bootcamp.StudentManagementSystem.model.dto.StudentDTO;
+import com.bootcamp.StudentManagementSystem.model.entity.Class;
+import com.bootcamp.StudentManagementSystem.model.entity.Course;
+import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +82,42 @@ public class StudentController {
     public ResponseEntity getAllByFirstNameContainingIgnoreCase(@PathVariable String firstName) {
         List<Student> allStudents = studentService.getAllByFirstNameContainingIgnoreCase(firstName);
         return ResponseEntity.ok(allStudents);
+    }
+
+    @PutMapping("add/class/{id}")
+    public ResponseEntity addClassToStudent(
+            @PathVariable Long id,
+            @RequestBody Class class1) {
+        try {
+            studentService.addClassToStudent(id, class1);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Related Class was added to related Student successfully");
+    }
+
+    @PutMapping("add/department/{id}")
+    public ResponseEntity addDepartmentToStudent(
+            @PathVariable Long id,
+            @RequestBody Department department) {
+        try {
+            studentService.addDepartmentToStudent(id, department);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Related Department was added to related Student successfully");
+    }
+
+    @PutMapping("add/course/{id}")
+    public ResponseEntity addCourseToStudent(
+            @PathVariable Long id,
+            @RequestBody Course course) {
+        try {
+            studentService.addCourseToStudent(id, course);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Related Course was added to related Student successfully");
     }
 
 }

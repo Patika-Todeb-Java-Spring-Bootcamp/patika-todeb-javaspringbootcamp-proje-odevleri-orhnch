@@ -1,7 +1,5 @@
 package com.bootcamp.StudentManagementSystem.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +14,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name= "faculty")
+@Table(name = "faculty")
 public class Faculty implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

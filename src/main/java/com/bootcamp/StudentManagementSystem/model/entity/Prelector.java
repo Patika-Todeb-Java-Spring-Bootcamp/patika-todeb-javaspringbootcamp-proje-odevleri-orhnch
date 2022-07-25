@@ -1,8 +1,6 @@
 package com.bootcamp.StudentManagementSystem.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +16,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name= "prelector")
+@Table(name = "prelector")
 public class Prelector implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

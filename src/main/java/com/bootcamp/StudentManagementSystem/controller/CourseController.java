@@ -75,11 +75,7 @@ public class CourseController {
     public ResponseEntity addClassToCourse(
             @PathVariable Long id,
             @RequestBody Class class1) {
-        Course addedClass = courseService.addClassToCourse(id, class1);
-        if (addedClass == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Related Class could not be added to related Course successfully");
-        }
+        courseService.addClassToCourse(id, class1);
         return ResponseEntity.status(HttpStatus.OK).body("Related Class was added to related Course successfully");
     }
 
@@ -87,11 +83,8 @@ public class CourseController {
     public ResponseEntity addPrelectorToCourse(
             @PathVariable Long id,
             @RequestBody Prelector prelector) {
-        Course addedPrelector = courseService.addPrelectorToCourse(id, prelector);
-        if (addedPrelector == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Related Prelector could not be added to related Course successfully");
-        }
+        courseService.addPrelectorToCourse(id, prelector);
+
         return ResponseEntity.status(HttpStatus.OK).body("Related Prelector was added to related Course successfully");
     }
 }

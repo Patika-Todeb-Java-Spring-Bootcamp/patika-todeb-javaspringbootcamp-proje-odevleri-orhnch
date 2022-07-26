@@ -74,11 +74,7 @@ public class DepartmentController {
     public ResponseEntity addFacultyToDepartment(
             @PathVariable Long id,
             @RequestBody Faculty faculty) {
-        Department addedFaculty = departmentService.addFacultyToDepartment(id, faculty);
-        if (addedFaculty == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Related Faculty could not be added to related Department successfully");
-        }
+        departmentService.addFacultyToDepartment(id, faculty);
         return ResponseEntity.status(HttpStatus.OK).body("Related Faculty was added to related Department successfully");
     }
 }

@@ -72,7 +72,7 @@ public class PrelectorService {
         Prelector prelector = getPrelectorById(id);
         Optional<Department> departmentById = departmentRepository.findById(department.getId());
         if(!departmentById.isPresent()){
-            return null;
+            throw new EntityNotFoundException("Department","id :" + department.getId());
         }
         Department addDepartment = departmentById.get();
         prelector.setDepartment(addDepartment);

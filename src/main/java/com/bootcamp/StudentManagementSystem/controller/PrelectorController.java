@@ -74,11 +74,7 @@ public class PrelectorController {
     public ResponseEntity addDepartmentToPrelector(
             @PathVariable Long id,
             @RequestBody Department department) {
-        Prelector addedDepartment = prelectorService.addDepartmentToPrelector(id, department);
-        if (addedDepartment == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Related Department could not be added to related Prelector successfully");
-        }
+        prelectorService.addDepartmentToPrelector(id, department);
         return ResponseEntity.status(HttpStatus.OK).body("Related Department was added to related Prelector successfully");
     }
 }

@@ -65,7 +65,7 @@ public class DepartmentService {
         Department department = getDepartmentById(id);
         Optional<Faculty> facultyById = facultyRepository.findById(faculty.getId());
         if (!facultyById.isPresent()) {
-            return null;
+            throw new EntityNotFoundException("Faculty","id: "+ faculty.getId());
         }
         Faculty addFaculty = facultyById.get();
         department.setFaculty(addFaculty);

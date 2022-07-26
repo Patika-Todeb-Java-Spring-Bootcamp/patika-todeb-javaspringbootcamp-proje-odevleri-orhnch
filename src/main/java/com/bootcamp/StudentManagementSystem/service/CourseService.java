@@ -31,7 +31,7 @@ public class CourseService {
 
     public Course getCourseById(Long id) {
         Optional<Course> byId = courseRepository.findById(id);
-        return byId.orElseThrow(() -> new EntityNotFoundException("Course","id :" + id));
+        return byId.orElseThrow(() -> new EntityNotFoundException("Course", "id :" + id));
     }
 
     public Course create(CourseDTO courseDTO) {
@@ -47,7 +47,7 @@ public class CourseService {
     public Course update(String code, CourseDTO course) {
         Optional<Course> courseByCode = courseRepository.findCourseByCode(code);
         if (!courseByCode.isPresent())
-            throw new EntityNotFoundException("Course","code :" + code);
+            throw new EntityNotFoundException("Course", "code :" + code);
         Course updatedCourse = courseByCode.get();
         if (!StringUtils.isEmpty(course.getCode())) {
             updatedCourse.setCode(course.getCode());
@@ -81,7 +81,7 @@ public class CourseService {
         Course course = getCourseById(id);
         Optional<Class> classById = classRepository.findById(class1.getId());
         if (!classById.isPresent()) {
-            return null;
+            throw new EntityNotFoundException("Class", "id :" + class1.getId());
         }
         Class addClass = classById.get();
         course.setCourseClass(addClass);
@@ -92,7 +92,7 @@ public class CourseService {
         Course course = getCourseById(id);
         Optional<Prelector> prelectorById = prelectorRepository.findById(prelector.getId());
         if (!prelectorById.isPresent()) {
-            return null;
+            throw new EntityNotFoundException("Prelector", "id :" + prelector.getId());
         }
         Prelector addPrelector = prelectorById.get();
         course.setPrelector(addPrelector);

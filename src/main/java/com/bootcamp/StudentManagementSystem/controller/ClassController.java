@@ -69,12 +69,7 @@ public class ClassController {
     public ResponseEntity addDepartmentToClass(
             @PathVariable Long id,
             @RequestBody Department department) {
-        Class addedDepartment = classService.addDepartmentToClass(id, department);
-        if (addedDepartment == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Related Department could not be added to related Class successfully");
-        }
-
+        classService.addDepartmentToClass(id, department);
         return ResponseEntity.status(HttpStatus.OK).body("Related Department was added to related Class successfully");
     }
 

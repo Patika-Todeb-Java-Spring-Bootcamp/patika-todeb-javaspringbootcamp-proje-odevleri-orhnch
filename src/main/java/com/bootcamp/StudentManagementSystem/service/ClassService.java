@@ -61,7 +61,7 @@ public class ClassService {
         Class class1 = getClassById(id);
         Optional<Department> departmentById = departmentRepository.findById(department.getId());
         if (!departmentById.isPresent()) {
-            return null;
+            throw new EntityNotFoundException("Department","id :" + department.getId());
         }
         Department addDepartment = departmentById.get();
         class1.setDepartment(addDepartment);

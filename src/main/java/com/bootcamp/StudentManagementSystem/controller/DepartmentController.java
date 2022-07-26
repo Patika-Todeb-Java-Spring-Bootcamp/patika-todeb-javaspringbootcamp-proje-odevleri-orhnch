@@ -55,10 +55,6 @@ public class DepartmentController {
             @PathVariable String name,
             @RequestBody DepartmentDTO department) {
         Department update = departmentService.update(name, department);
-        if (update == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Department could not be updated successfully");
-        }
         return ResponseEntity.status(HttpStatus.OK).body(update);
     }
 

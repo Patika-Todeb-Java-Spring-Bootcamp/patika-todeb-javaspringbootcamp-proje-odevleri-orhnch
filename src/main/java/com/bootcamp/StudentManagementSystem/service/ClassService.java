@@ -45,7 +45,7 @@ public class ClassService {
     public Class update(Integer level, ClassDTO class1) {
         Optional<Class> classByLevel = classRepository.findClassByLevel(level);
         if (!classByLevel.isPresent())
-            return null;
+            throw new EntityNotFoundException("Class","level :" + level);
         Class updatedClass = classByLevel.get();
         if (class1.getLevel() > 0) {
             updatedClass.setLevel(class1.getLevel());

@@ -55,10 +55,6 @@ public class PrelectorController {
             @PathVariable String email,
             @RequestBody PrelectorDTO prelector) {
         Prelector update = prelectorService.update(email, prelector);
-        if (update == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Prelector could not be updated successfully");
-        }
         return ResponseEntity.status(HttpStatus.OK).body(update);
     }
 

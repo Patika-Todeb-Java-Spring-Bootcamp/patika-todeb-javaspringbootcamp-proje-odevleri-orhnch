@@ -50,7 +50,7 @@ public class StudentService {
     public Student update(String email, StudentDTO student) {
         Optional<Student> studentByEmail = studentRepository.findStudentByEmail(email);
         if (!studentByEmail.isPresent())
-            return null;
+            throw new EntityNotFoundException("Student","email :"+email);
         Student updatedStudent = studentByEmail.get();
         if (!StringUtils.isEmpty(student.getEmail())) {
             updatedStudent.setEmail(student.getEmail());

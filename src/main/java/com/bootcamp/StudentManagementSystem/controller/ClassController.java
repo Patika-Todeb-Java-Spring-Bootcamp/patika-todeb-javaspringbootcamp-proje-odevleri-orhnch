@@ -56,10 +56,6 @@ public class ClassController {
             @PathVariable Integer level,
             @RequestBody ClassDTO class1) {
         Class update = classService.update(level, class1);
-        if (update == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Class could not be updated successfully");
-        }
         return ResponseEntity.status(HttpStatus.OK).body(update);
     }
 

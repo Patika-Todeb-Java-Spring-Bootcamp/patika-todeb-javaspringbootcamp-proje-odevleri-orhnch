@@ -41,7 +41,7 @@ public class FacultyService {
     public Faculty update(String name, FacultyDTO faculty) {
         Optional<Faculty> facultyByName = facultyRepository.findFacultyByName(name);
         if (!facultyByName.isPresent())
-            return null;
+            throw new EntityNotFoundException("Faculty","name: "+ name);
         Faculty updatedFaculty = facultyByName.get();
         if (!StringUtils.isEmpty(faculty.getName())) {
             updatedFaculty.setName(faculty.getName());

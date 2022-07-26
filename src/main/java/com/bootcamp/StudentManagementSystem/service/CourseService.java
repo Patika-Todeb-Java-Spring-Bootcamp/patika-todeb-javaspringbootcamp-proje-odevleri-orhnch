@@ -47,7 +47,7 @@ public class CourseService {
     public Course update(String code, CourseDTO course) {
         Optional<Course> courseByCode = courseRepository.findCourseByCode(code);
         if (!courseByCode.isPresent())
-            return null;
+            throw new EntityNotFoundException("Course","code :" + code);
         Course updatedCourse = courseByCode.get();
         if (!StringUtils.isEmpty(course.getCode())) {
             updatedCourse.setCode(course.getCode());

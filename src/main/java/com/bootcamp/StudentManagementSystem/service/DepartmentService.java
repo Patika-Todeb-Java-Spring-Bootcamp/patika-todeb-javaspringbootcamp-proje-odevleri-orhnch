@@ -43,7 +43,7 @@ public class DepartmentService {
     public Department update(String name, DepartmentDTO department) {
         Optional<Department> departmentByName = departmentRepository.findDepartmentByName(name);
         if (!departmentByName.isPresent())
-            return null;
+            throw new EntityNotFoundException("Department","name: "+name);
         Department updatedDepartment = departmentByName.get();
         if (!StringUtils.isEmpty(department.getName())) {
             updatedDepartment.setName(department.getName());

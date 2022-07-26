@@ -54,10 +54,6 @@ public class FacultyController {
             @PathVariable String name,
             @RequestBody FacultyDTO faculty) {
         Faculty update = facultyService.update(name, faculty);
-        if (update == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Faculty could not be updated successfully");
-        }
         return ResponseEntity.status(HttpStatus.OK).body(update);
     }
 

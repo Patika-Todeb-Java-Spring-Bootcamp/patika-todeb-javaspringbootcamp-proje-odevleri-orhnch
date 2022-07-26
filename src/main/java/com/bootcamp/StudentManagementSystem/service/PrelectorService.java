@@ -44,7 +44,7 @@ public class PrelectorService {
     public Prelector update(String email, PrelectorDTO prelector) {
         Optional<Prelector> prelectorByEmail = prelectorRepository.findPrelectorByEmail(email);
         if (!prelectorByEmail.isPresent())
-            return null;
+            throw new EntityNotFoundException("Prelector","email :" + email);
         Prelector updatedPrelector = prelectorByEmail.get();
         if (!StringUtils.isEmpty(prelector.getEmail())) {
             updatedPrelector.setEmail(prelector.getEmail());

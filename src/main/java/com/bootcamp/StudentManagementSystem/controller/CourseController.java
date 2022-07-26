@@ -56,10 +56,6 @@ public class CourseController {
             @PathVariable String code,
             @RequestBody CourseDTO course) {
         Course update = courseService.update(code, course);
-        if (update == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Course could not be updated successfully");
-        }
         return ResponseEntity.status(HttpStatus.OK).body(update);
     }
 

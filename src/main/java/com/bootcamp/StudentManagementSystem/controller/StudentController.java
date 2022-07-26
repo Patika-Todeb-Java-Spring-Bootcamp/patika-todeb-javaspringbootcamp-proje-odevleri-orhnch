@@ -56,10 +56,6 @@ public class StudentController {
             @PathVariable String email,
             @RequestBody StudentDTO student) {
         Student update = studentService.update(email, student);
-        if (update == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Prelector could not be updated successfully");
-        }
         return ResponseEntity.status(HttpStatus.OK).body(update);
     }
 

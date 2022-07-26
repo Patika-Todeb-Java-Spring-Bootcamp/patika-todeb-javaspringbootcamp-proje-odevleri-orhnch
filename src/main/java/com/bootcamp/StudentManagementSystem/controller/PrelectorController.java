@@ -60,11 +60,7 @@ public class PrelectorController {
 
     @DeleteMapping("/all")
     public ResponseEntity deleteAllCourses() {
-        try {
-            prelectorService.deleteAll();
-        } catch (RuntimeException exception) {
-            return ResponseEntity.notFound().build();
-        }
+        prelectorService.deleteAll();
         return ResponseEntity.status(HttpStatus.OK).body("All prelectors were deleted successfully");
     }
 

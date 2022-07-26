@@ -60,11 +60,7 @@ public class DepartmentController {
 
     @DeleteMapping("/all")
     public ResponseEntity deleteAllDepartments() {
-        try {
-            departmentService.deleteAll();
-        } catch (RuntimeException exception) {
-            return ResponseEntity.notFound().build();
-        }
+        departmentService.deleteAll();
         return ResponseEntity.status(HttpStatus.OK).body("All departments were deleted successfully");
     }
 

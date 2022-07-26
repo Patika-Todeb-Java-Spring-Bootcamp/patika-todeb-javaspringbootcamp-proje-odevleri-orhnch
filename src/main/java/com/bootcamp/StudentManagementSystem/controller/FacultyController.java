@@ -59,11 +59,7 @@ public class FacultyController {
 
     @DeleteMapping("/all")
     public ResponseEntity deleteAllFaculties() {
-        try {
-            facultyService.deleteAll();
-        } catch (RuntimeException exception) {
-            return ResponseEntity.notFound().build();
-        }
+        facultyService.deleteAll();
         return ResponseEntity.status(HttpStatus.OK).body("All faculties were deleted successfully");
     }
 

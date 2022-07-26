@@ -61,11 +61,7 @@ public class CourseController {
 
     @DeleteMapping("/all")
     public ResponseEntity deleteAllCourses() {
-        try {
-            courseService.deleteAll();
-        } catch (RuntimeException exception) {
-            return ResponseEntity.notFound().build();
-        }
+        courseService.deleteAll();
         return ResponseEntity.status(HttpStatus.OK).body("All courses were deleted successfully");
     }
 

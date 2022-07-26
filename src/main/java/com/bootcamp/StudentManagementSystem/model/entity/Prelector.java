@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class Prelector implements Serializable {
 
     private String firstName;
     private String lastName;
+    @Email
     private String email;
 
     @JsonIgnore

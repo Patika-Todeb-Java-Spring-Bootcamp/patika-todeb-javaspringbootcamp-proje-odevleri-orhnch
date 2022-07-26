@@ -75,11 +75,7 @@ public class StudentController {
     public ResponseEntity addClassToStudent(
             @PathVariable Long id,
             @RequestBody Class class1) {
-        Student addedClass = studentService.addClassToStudent(id, class1);
-        if (addedClass == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Related Class could not be added to related Student successfully");
-        }
+        studentService.addClassToStudent(id, class1);
         return ResponseEntity.status(HttpStatus.OK).body("Related Class was added to related Student successfully");
     }
 
@@ -87,11 +83,7 @@ public class StudentController {
     public ResponseEntity addDepartmentToStudent(
             @PathVariable Long id,
             @RequestBody Department department) {
-        Student addedDepartment = studentService.addDepartmentToStudent(id, department);
-        if (addedDepartment == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Related Department could not be added to related Student successfully");
-        }
+        studentService.addDepartmentToStudent(id, department);
         return ResponseEntity.status(HttpStatus.OK).body("Related Department was added to related Student successfully");
     }
 
@@ -99,11 +91,7 @@ public class StudentController {
     public ResponseEntity addCourseToStudent(
             @PathVariable Long id,
             @RequestBody Course course) {
-        Student addedCourse = studentService.addCourseToStudent(id, course);
-        if (addedCourse == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Related Course could not be added to related Student successfully");
-        }
+        studentService.addCourseToStudent(id, course);
         return ResponseEntity.status(HttpStatus.OK).body("Related Course was added to related Student successfully");
     }
 

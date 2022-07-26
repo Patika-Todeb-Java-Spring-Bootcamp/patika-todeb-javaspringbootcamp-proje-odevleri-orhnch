@@ -77,12 +77,10 @@ public class StudentService {
     public Student addClassToStudent(Long id, Class class1) {
         Student student = getStudentById(id);
         Optional<Class> classById = classRepository.findById(class1.getId());
-        ///
         if (!classById.isPresent()) {
-            return null;
+            throw new EntityNotFoundException("Class","id :"+ class1.getId());
         }
         Class addClass = classById.get();
-        // Class addClass = classById.orElse(null);
         student.setClassNumber(addClass);
         return studentRepository.save(student);
     }
@@ -91,7 +89,7 @@ public class StudentService {
         Student student = getStudentById(id);
         Optional<Department> departmentById = departmentRepository.findById(department.getId());
         if (!departmentById.isPresent()) {
-            return null;
+            throw new EntityNotFoundException("Department","id :"+ department.getId());
         }
         Department addDepartment = departmentById.get();
         student.setDepartment(addDepartment);
@@ -102,7 +100,7 @@ public class StudentService {
         Student student = getStudentById(id);
         Optional<Course> courseById = courseRepository.findById(course.getId());
         if (!courseById.isPresent()) {
-            return null;
+            throw new EntityNotFoundException("Course","id :"+ course.getId());
         }
         Course addCourse = courseById.get();
         List<Course> courses = student.getCourses();

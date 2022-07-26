@@ -26,6 +26,7 @@ public class Department implements Serializable {
     @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Class> classes;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Student> students;
 

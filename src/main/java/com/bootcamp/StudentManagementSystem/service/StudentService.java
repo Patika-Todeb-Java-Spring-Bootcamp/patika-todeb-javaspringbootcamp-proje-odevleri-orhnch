@@ -104,9 +104,8 @@ public class StudentService {
             return null;
         }
         Course addCourse = courseById.get();
-        List<Course> courses = new ArrayList<>();
+        List<Course> courses = student.getCourses();
         courses.add(addCourse);
-        student.setCourses(courses);
         return studentRepository.save(student);
     }
 

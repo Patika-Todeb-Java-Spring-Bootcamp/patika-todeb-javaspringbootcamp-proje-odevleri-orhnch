@@ -46,7 +46,7 @@ public class ClassService {
         if (!classByLevel.isPresent())
             return null;
         Class updatedClass = classByLevel.get();
-        if (!StringUtils.isEmpty(class1.getLevel())) {
+        if (class1.getLevel() > 0) {
             updatedClass.setLevel(class1.getLevel());
         }
         return classRepository.save(updatedClass);

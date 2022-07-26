@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -49,6 +50,6 @@ public class Student implements Serializable {
                     @JoinColumn(name = "course_id")
             }
     )
-    private List<Course> courses;
+    private List<Course> courses = new ArrayList<>();
 
 }

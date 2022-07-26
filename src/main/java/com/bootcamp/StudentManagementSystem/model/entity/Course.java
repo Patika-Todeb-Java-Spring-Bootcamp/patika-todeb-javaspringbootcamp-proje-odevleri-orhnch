@@ -40,8 +40,8 @@ public class Course implements Serializable {
     @JoinColumn(name = "prelector_id")
     private Prelector prelector;
 
-
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToMany(mappedBy = "courses")
     private List<Student> students;
 
 

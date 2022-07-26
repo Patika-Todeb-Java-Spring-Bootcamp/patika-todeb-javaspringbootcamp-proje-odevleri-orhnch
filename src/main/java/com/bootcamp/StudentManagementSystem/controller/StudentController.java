@@ -108,7 +108,7 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.OK).body("Related Department was added to related Student successfully");
     }
 
- /*   @PutMapping("add/course/{id}")
+    @PutMapping("add/course/{id}")
     public ResponseEntity addCourseToStudent(
             @PathVariable Long id,
             @RequestBody Course course) {
@@ -118,6 +118,6 @@ public class StudentController {
                     .body("Related Course could not be added to related Student successfully");
         }
         return ResponseEntity.status(HttpStatus.OK).body("Related Course was added to related Student successfully");
-    }*/
+    }
 
 }

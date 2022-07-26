@@ -1,5 +1,6 @@
 package com.bootcamp.StudentManagementSystem.service;
 
+import com.bootcamp.StudentManagementSystem.exception.EntityNotFoundException;
 import com.bootcamp.StudentManagementSystem.model.dto.DepartmentDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
@@ -26,7 +27,7 @@ public class DepartmentService {
 
     public Department getDepartmentById(Long id) {
         Optional<Department> byId = departmentRepository.findById(id);
-        return byId.orElseThrow(() -> new RuntimeException("Department not found!"));
+        return byId.orElseThrow(() -> new EntityNotFoundException("Department","id: "+id));
     }
 
     public Department create(DepartmentDTO departmentDTO) {

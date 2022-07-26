@@ -25,12 +25,7 @@ public class FacultyController {
 
     @GetMapping("/{id}")
     public ResponseEntity getFacultyByID(@PathVariable Long id) {
-        Faculty facultyById;
-        try {
-            facultyById = facultyService.getFacultyById(id);
-        } catch (RuntimeException exception) {
-            return ResponseEntity.notFound().build();
-        }
+        Faculty facultyById = facultyService.getFacultyById(id);
         return ResponseEntity.status(HttpStatus.OK).body(facultyById);
     }
 

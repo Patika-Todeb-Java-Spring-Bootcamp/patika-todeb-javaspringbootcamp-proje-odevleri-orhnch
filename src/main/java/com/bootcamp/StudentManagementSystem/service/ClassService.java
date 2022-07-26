@@ -1,5 +1,6 @@
 package com.bootcamp.StudentManagementSystem.service;
 
+import com.bootcamp.StudentManagementSystem.exception.EntityNotFoundException;
 import com.bootcamp.StudentManagementSystem.model.dto.ClassDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Class;
 import com.bootcamp.StudentManagementSystem.model.entity.Department;
@@ -33,7 +34,7 @@ public class ClassService {
 
     public Class getClassById(Long id) {
         Optional<Class> byId = classRepository.findById(id);
-        return byId.orElseThrow(() -> new RuntimeException("Class not found!"));
+        return byId.orElseThrow(() -> new EntityNotFoundException("Class","id :" + id));
     }
 
     public void delete(Long id) {

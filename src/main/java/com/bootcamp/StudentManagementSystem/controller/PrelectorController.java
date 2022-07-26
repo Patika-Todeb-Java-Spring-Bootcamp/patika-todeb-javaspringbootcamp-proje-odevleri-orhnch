@@ -26,12 +26,7 @@ public class PrelectorController {
 
     @GetMapping("/{id}")
     public ResponseEntity getPrelectorByID(@PathVariable Long id) {
-        Prelector prelectorById;
-        try {
-            prelectorById = prelectorService.getPrelectorById(id);
-        } catch (RuntimeException exception) {
-            return ResponseEntity.notFound().build();
-        }
+        Prelector prelectorById = prelectorService.getPrelectorById(id);
         return ResponseEntity.status(HttpStatus.OK).body(prelectorById);
     }
 

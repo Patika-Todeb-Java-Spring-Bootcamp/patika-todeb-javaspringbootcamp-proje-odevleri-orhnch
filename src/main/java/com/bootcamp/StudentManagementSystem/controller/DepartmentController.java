@@ -26,12 +26,7 @@ public class DepartmentController {
 
     @GetMapping("/{id}")
     public ResponseEntity getDepartmentById(@PathVariable Long id) {
-        Department departmentById;
-        try {
-            departmentById = departmentService.getDepartmentById(id);
-        } catch (RuntimeException exception) {
-            return ResponseEntity.notFound().build();
-        }
+        Department departmentById = departmentService.getDepartmentById(id);
         return ResponseEntity.status(HttpStatus.OK).body(departmentById);
     }
 

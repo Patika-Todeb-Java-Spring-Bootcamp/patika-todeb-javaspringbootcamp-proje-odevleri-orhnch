@@ -1,5 +1,6 @@
 package com.bootcamp.StudentManagementSystem.service;
 
+import com.bootcamp.StudentManagementSystem.exception.EntityNotFoundException;
 import com.bootcamp.StudentManagementSystem.model.dto.FacultyDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
 import com.bootcamp.StudentManagementSystem.model.mapper.FacultyMapper;
@@ -24,7 +25,7 @@ public class FacultyService {
 
     public Faculty getFacultyById(Long id) {
         Optional<Faculty> byId = facultyRepository.findById(id);
-        return byId.orElseThrow(() -> new RuntimeException("Faculty not found!"));
+        return byId.orElseThrow(() -> new EntityNotFoundException("Faculty","id: "+ id));
     }
 
     public Faculty create(FacultyDTO facultyDTO) {

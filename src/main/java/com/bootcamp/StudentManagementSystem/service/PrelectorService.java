@@ -1,5 +1,6 @@
 package com.bootcamp.StudentManagementSystem.service;
 
+import com.bootcamp.StudentManagementSystem.exception.EntityNotFoundException;
 import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
@@ -27,7 +28,7 @@ public class PrelectorService {
 
     public Prelector getPrelectorById(Long id) {
         Optional<Prelector> byId = prelectorRepository.findById(id);
-        return byId.orElseThrow(() -> new RuntimeException("Prelector not found!"));
+        return byId.orElseThrow(() -> new EntityNotFoundException("Prelector","id :" + id));
     }
 
     public Prelector create(PrelectorDTO prelectorDTO) {

@@ -27,12 +27,7 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public ResponseEntity getCourseById(@PathVariable Long id) {
-        Course courseById;
-        try {
-            courseById = courseService.getCourseById(id);
-        } catch (RuntimeException exception) {
-            return ResponseEntity.notFound().build();
-        }
+        Course courseById = courseService.getCourseById(id);
         return ResponseEntity.status(HttpStatus.OK).body(courseById);
     }
 

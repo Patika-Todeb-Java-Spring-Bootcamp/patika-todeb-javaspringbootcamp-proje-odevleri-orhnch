@@ -27,12 +27,7 @@ public class StudentController {
 
     @GetMapping("/{id}")
     public ResponseEntity getStudentByID(@PathVariable Long id) {
-        Student studentById;
-        try {
-            studentById = studentService.getStudentById(id);
-        } catch (RuntimeException exception) {
-            return ResponseEntity.notFound().build();
-        }
+        Student studentById = studentService.getStudentById(id);
         return ResponseEntity.status(HttpStatus.OK).body(studentById);
     }
 

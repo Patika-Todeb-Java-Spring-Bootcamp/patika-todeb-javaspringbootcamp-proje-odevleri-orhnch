@@ -1,5 +1,6 @@
 package com.bootcamp.StudentManagementSystem.service;
 
+import com.bootcamp.StudentManagementSystem.exception.EntityNotFoundException;
 import com.bootcamp.StudentManagementSystem.model.dto.CourseDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Class;
 import com.bootcamp.StudentManagementSystem.model.entity.Course;
@@ -30,7 +31,7 @@ public class CourseService {
 
     public Course getCourseById(Long id) {
         Optional<Course> byId = courseRepository.findById(id);
-        return byId.orElseThrow(() -> new RuntimeException("Course not found!"));
+        return byId.orElseThrow(() -> new EntityNotFoundException("Course","id :" + id));
     }
 
     public Course create(CourseDTO courseDTO) {

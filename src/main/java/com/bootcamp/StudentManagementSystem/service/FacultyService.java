@@ -28,6 +28,11 @@ public class FacultyService {
         return byId.orElseThrow(() -> new EntityNotFoundException("Faculty","id: "+ id));
     }
 
+    public Faculty getFacultyByName(String name) {
+        Optional<Faculty> facultyByName = facultyRepository.findFacultyByName(name);
+        return facultyByName.orElseThrow(() -> new EntityNotFoundException("Faculty","name: "+ name));
+    }
+
     public Faculty create(FacultyDTO facultyDTO) {
         Faculty faculty = FacultyMapper.toEntity(facultyDTO);
         return facultyRepository.save(faculty);
@@ -39,10 +44,7 @@ public class FacultyService {
     }
 
     public Faculty update(String name, FacultyDTO faculty) {
-        Optional<Faculty> facultyByName = facultyRepository.findFacultyByName(name);
-        if (!facultyByName.isPresent())
-            throw new EntityNotFoundException("Faculty","name: "+ name);
-        Faculty updatedFaculty = facultyByName.get();
+        Faculty updatedFaculty = getFacultyByName(name);
         if (!StringUtils.isEmpty(faculty.getName())) {
             updatedFaculty.setName(faculty.getName());
         }

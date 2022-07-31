@@ -29,6 +29,13 @@ public class FacultyController {
         return ResponseEntity.status(HttpStatus.OK).body(facultyById);
     }
 
+    @GetMapping("get/faculty/{name}")
+    public ResponseEntity getFacultyByName(@PathVariable String name) {
+        Faculty facultyByName = facultyService.getFacultyByName(name);
+        return ResponseEntity.status(HttpStatus.OK).body(facultyByName);
+    }
+
+
     @PostMapping("/create")
     public ResponseEntity createNewFaculty(@RequestBody FacultyDTO faculty) {
         Faculty respFaculty = facultyService.create(faculty);

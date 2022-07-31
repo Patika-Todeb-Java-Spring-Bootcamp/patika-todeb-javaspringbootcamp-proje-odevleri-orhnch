@@ -30,6 +30,12 @@ public class PrelectorController {
         return ResponseEntity.status(HttpStatus.OK).body(prelectorById);
     }
 
+    @GetMapping("get/prelector/{email}")
+    public ResponseEntity getPrelectorByEmail(@PathVariable String email) {
+        Prelector prelectorByEmail = prelectorService.getPrelectorByEmail(email);
+        return ResponseEntity.status(HttpStatus.OK).body(prelectorByEmail);
+    }
+
     @PostMapping("/create")
     public ResponseEntity createNewPrelectors(@RequestBody PrelectorDTO prelector) {
         Prelector respPrelector = prelectorService.create(prelector);

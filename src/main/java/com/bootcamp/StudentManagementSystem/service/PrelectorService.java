@@ -29,6 +29,11 @@ public class PrelectorService {
         return byId.orElseThrow(() -> new EntityNotFoundException("Prelector", "id :" + id));
     }
 
+    public Prelector getPrelectorByEmail(String email) {
+        Optional<Prelector> prelectorByEmail = prelectorRepository.findPrelectorByEmail(email);
+        return prelectorByEmail.orElseThrow(() -> new EntityNotFoundException("Prelector", "email :" + email));
+    }
+
     public Prelector create(PrelectorDTO prelectorDTO) {
         Prelector prelector = PrelectorMapper.toEntity(prelectorDTO);
         return prelectorRepository.save(prelector);
@@ -40,10 +45,7 @@ public class PrelectorService {
     }
 
     public Prelector update(String email, PrelectorDTO prelector) {
-        Optional<Prelector> prelectorByEmail = prelectorRepository.findPrelectorByEmail(email);
-        if (!prelectorByEmail.isPresent())
-            throw new EntityNotFoundException("Prelector", "email :" + email);
-        Prelector updatedPrelector = prelectorByEmail.get();
+        Prelector updatedPrelector = getPrelectorByEmail(email);
         if (!StringUtils.isEmpty(prelector.getEmail())) {
             updatedPrelector.setEmail(prelector.getEmail());
         }

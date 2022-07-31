@@ -51,11 +51,11 @@ public class ClassController {
         return ResponseEntity.status(HttpStatus.OK).body("Related Class deleted successfully");
     }
 
-    @PutMapping("/{level}")
+    @PutMapping("/{id}")
     public ResponseEntity updateClass(
-            @PathVariable Integer level,
+            @PathVariable Long id,
             @RequestBody ClassDTO class1) {
-        Class update = classService.update(level, class1);
+        Class update = classService.update(id, class1);
         return ResponseEntity.status(HttpStatus.OK).body(update);
     }
 

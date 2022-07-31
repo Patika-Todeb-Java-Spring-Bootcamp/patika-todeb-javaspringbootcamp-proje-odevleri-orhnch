@@ -40,11 +40,8 @@ public class ClassService {
         classRepository.deleteById(id);
     }
 
-    public Class update(Integer level, ClassDTO class1) {
-        Optional<Class> classByLevel = classRepository.findClassByLevel(level);
-        if (!classByLevel.isPresent())
-            throw new EntityNotFoundException("Class", "level :" + level);
-        Class updatedClass = classByLevel.get();
+    public Class update(Long id, ClassDTO class1) {
+        Class updatedClass = getClassById(id);
         if (class1.getLevel() > 0) {
             updatedClass.setLevel(class1.getLevel());
         }

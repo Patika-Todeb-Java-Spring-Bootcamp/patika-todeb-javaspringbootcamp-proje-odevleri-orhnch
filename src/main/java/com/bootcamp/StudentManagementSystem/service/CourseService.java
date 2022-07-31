@@ -31,6 +31,10 @@ public class CourseService {
         Optional<Course> byId = courseRepository.findById(id);
         return byId.orElseThrow(() -> new EntityNotFoundException("Course", "id :" + id));
     }
+    public Course getCourseByCode(String code) {
+        Optional<Course> byId = courseRepository.findCourseByCode(code);
+        return byId.orElseThrow(() -> new EntityNotFoundException("Course", "code :" + code));
+    }
 
     public Course create(CourseDTO courseDTO) {
         Course course = CourseMapper.toEntity(courseDTO);
@@ -43,10 +47,7 @@ public class CourseService {
     }
 
     public Course update(String code, CourseDTO course) {
-        Optional<Course> courseByCode = courseRepository.findCourseByCode(code);
-        if (!courseByCode.isPresent())
-            throw new EntityNotFoundException("Course", "code :" + code);
-        Course updatedCourse = courseByCode.get();
+        Course updatedCourse = getCourseByCode(code);
         if (!StringUtils.isEmpty(course.getCode())) {
             updatedCourse.setCode(course.getCode());
         }

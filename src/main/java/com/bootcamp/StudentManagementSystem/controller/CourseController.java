@@ -30,6 +30,11 @@ public class CourseController {
         Course courseById = courseService.getCourseById(id);
         return ResponseEntity.status(HttpStatus.OK).body(courseById);
     }
+    @GetMapping("get/course/{code}")
+    public ResponseEntity getCourseByCode(@PathVariable String code) {
+        Course courseByCode = courseService.getCourseByCode(code);
+        return ResponseEntity.status(HttpStatus.OK).body(courseByCode);
+    }
 
     @PostMapping("/create")
     public ResponseEntity createNewCourse(@RequestBody CourseDTO course) {

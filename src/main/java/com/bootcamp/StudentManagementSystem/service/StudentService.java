@@ -36,6 +36,10 @@ public class StudentService {
         Optional<Student> byId = studentRepository.findById(id);
         return byId.orElseThrow(() -> new EntityNotFoundException("Student","id :"+id));
     }
+    public Student getStudentByEmail(String  email) {
+        Optional<Student> studentByEmail = studentRepository.findStudentByEmail(email);
+        return studentByEmail.orElseThrow(() -> new EntityNotFoundException("Student","email :"+email));
+    }
 
     public Student create(StudentDTO studentDTO) {
         Student student = StudentMapper.toEntity(studentDTO);
@@ -48,10 +52,7 @@ public class StudentService {
     }
 
     public Student update(String email, StudentDTO student) {
-        Optional<Student> studentByEmail = studentRepository.findStudentByEmail(email);
-        if (!studentByEmail.isPresent())
-            throw new EntityNotFoundException("Student","email :"+email);
-        Student updatedStudent = studentByEmail.get();
+       Student updatedStudent = getStudentByEmail(email);
         if (!StringUtils.isEmpty(student.getEmail())) {
             updatedStudent.setEmail(student.getEmail());
         }

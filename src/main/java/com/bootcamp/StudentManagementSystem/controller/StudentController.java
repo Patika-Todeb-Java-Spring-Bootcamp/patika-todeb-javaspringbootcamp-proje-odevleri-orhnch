@@ -31,6 +31,12 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.OK).body(studentById);
     }
 
+    @GetMapping("get/student/{email}")
+    public ResponseEntity getStudentByID(@PathVariable String email) {
+        Student studentByEmail = studentService.getStudentByEmail(email);
+        return ResponseEntity.status(HttpStatus.OK).body(studentByEmail);
+    }
+
     @PostMapping("/create")
     public ResponseEntity createNewStudent(@RequestBody StudentDTO student) {
         Student respStudent = studentService.create(student);

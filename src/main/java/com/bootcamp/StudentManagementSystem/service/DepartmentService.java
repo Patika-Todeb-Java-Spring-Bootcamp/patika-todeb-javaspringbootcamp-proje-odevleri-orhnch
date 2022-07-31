@@ -28,6 +28,10 @@ public class DepartmentService {
         Optional<Department> byId = departmentRepository.findById(id);
         return byId.orElseThrow(() -> new EntityNotFoundException("Department", "id: " + id));
     }
+    public Department getDepartmentByName(String name) {
+        Optional<Department> departmentByName = departmentRepository.findDepartmentByName(name);
+        return departmentByName.orElseThrow(() -> new EntityNotFoundException("Department", "name: " + name));
+    }
 
     public Department create(DepartmentDTO departmentDTO) {
         Department department = DepartmentMapper.toEntity(departmentDTO);
@@ -40,10 +44,7 @@ public class DepartmentService {
     }
 
     public Department update(String name, DepartmentDTO department) {
-        Optional<Department> departmentByName = departmentRepository.findDepartmentByName(name);
-        if (!departmentByName.isPresent())
-            throw new EntityNotFoundException("Department", "name: " + name);
-        Department updatedDepartment = departmentByName.get();
+        Department updatedDepartment = getDepartmentByName(name);
         if (!StringUtils.isEmpty(department.getName())) {
             updatedDepartment.setName(department.getName());
         }

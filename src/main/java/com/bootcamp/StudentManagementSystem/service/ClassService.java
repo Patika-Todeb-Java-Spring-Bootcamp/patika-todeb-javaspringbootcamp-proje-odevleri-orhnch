@@ -6,10 +6,8 @@ import com.bootcamp.StudentManagementSystem.model.entity.Class;
 import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.mapper.ClassMapper;
 import com.bootcamp.StudentManagementSystem.repository.ClassRepository;
-import com.bootcamp.StudentManagementSystem.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +18,7 @@ public class ClassService {
 
     private final ClassRepository classRepository;
 
-    private final DepartmentRepository departmentRepository;
+    private final DepartmentService departmentService;
 
     public List<Class> getAllClasses() {
         List<Class> allClasses = classRepository.findAll();
@@ -34,7 +32,7 @@ public class ClassService {
 
     public Class getClassById(Long id) {
         Optional<Class> byId = classRepository.findById(id);
-        return byId.orElseThrow(() -> new EntityNotFoundException("Class","id :" + id));
+        return byId.orElseThrow(() -> new EntityNotFoundException("Class", "id :" + id));
     }
 
     public void delete(Long id) {
@@ -45,7 +43,7 @@ public class ClassService {
     public Class update(Integer level, ClassDTO class1) {
         Optional<Class> classByLevel = classRepository.findClassByLevel(level);
         if (!classByLevel.isPresent())
-            throw new EntityNotFoundException("Class","level :" + level);
+            throw new EntityNotFoundException("Class", "level :" + level);
         Class updatedClass = classByLevel.get();
         if (class1.getLevel() > 0) {
             updatedClass.setLevel(class1.getLevel());
@@ -59,12 +57,8 @@ public class ClassService {
 
     public Class addDepartmentToClass(Long id, Department department) {
         Class class1 = getClassById(id);
-        Optional<Department> departmentById = departmentRepository.findById(department.getId());
-        if (!departmentById.isPresent()) {
-            throw new EntityNotFoundException("Department","id :" + department.getId());
-        }
-        Department addDepartment = departmentById.get();
-        class1.setDepartment(addDepartment);
+        Department departmentById = departmentService.getDepartmentById(department.getId());
+        class1.setDepartment(departmentById);
         return classRepository.save(class1);
     }
 }

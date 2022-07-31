@@ -6,7 +6,6 @@ import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
 import com.bootcamp.StudentManagementSystem.model.mapper.DepartmentMapper;
 import com.bootcamp.StudentManagementSystem.repository.DepartmentRepository;
-import com.bootcamp.StudentManagementSystem.repository.FacultyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -18,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DepartmentService {
     private final DepartmentRepository departmentRepository;
-    private final FacultyRepository facultyRepository;
+    private final FacultyService facultyService;
 
     public List<Department> getAllDepartments() {
         List<Department> allDepartments = departmentRepository.findAll();
@@ -27,7 +26,7 @@ public class DepartmentService {
 
     public Department getDepartmentById(Long id) {
         Optional<Department> byId = departmentRepository.findById(id);
-        return byId.orElseThrow(() -> new EntityNotFoundException("Department","id: "+id));
+        return byId.orElseThrow(() -> new EntityNotFoundException("Department", "id: " + id));
     }
 
     public Department create(DepartmentDTO departmentDTO) {
@@ -43,7 +42,7 @@ public class DepartmentService {
     public Department update(String name, DepartmentDTO department) {
         Optional<Department> departmentByName = departmentRepository.findDepartmentByName(name);
         if (!departmentByName.isPresent())
-            throw new EntityNotFoundException("Department","name: "+name);
+            throw new EntityNotFoundException("Department", "name: " + name);
         Department updatedDepartment = departmentByName.get();
         if (!StringUtils.isEmpty(department.getName())) {
             updatedDepartment.setName(department.getName());
@@ -63,11 +62,7 @@ public class DepartmentService {
 
     public Department addFacultyToDepartment(Long id, Faculty faculty) {
         Department department = getDepartmentById(id);
-        Optional<Faculty> facultyById = facultyRepository.findById(faculty.getId());
-        if (!facultyById.isPresent()) {
-            throw new EntityNotFoundException("Faculty","id: "+ faculty.getId());
-        }
-        Faculty addFaculty = facultyById.get();
+        Faculty addFaculty = facultyService.getFacultyById(faculty.getId());
         department.setFaculty(addFaculty);
         return departmentRepository.save(department);
     }

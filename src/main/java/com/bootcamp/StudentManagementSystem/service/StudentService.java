@@ -23,9 +23,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository studentRepository;
-    private final ClassRepository classRepository;
-    private final DepartmentRepository departmentRepository;
-    private final CourseRepository courseRepository;
+    private final ClassService classService;
+    private final DepartmentService departmentService;
+    private final CourseService courseService;
 
     public List<Student> getAllStudents() {
         List<Student> allStudents = studentRepository.findAll();
@@ -76,33 +76,21 @@ public class StudentService {
 
     public Student addClassToStudent(Long id, Class class1) {
         Student student = getStudentById(id);
-        Optional<Class> classById = classRepository.findById(class1.getId());
-        if (!classById.isPresent()) {
-            throw new EntityNotFoundException("Class","id :"+ class1.getId());
-        }
-        Class addClass = classById.get();
+        Class addClass = classService.getClassById(class1.getId());
         student.setClassNumber(addClass);
         return studentRepository.save(student);
     }
 
     public Student addDepartmentToStudent(Long id, Department department) {
         Student student = getStudentById(id);
-        Optional<Department> departmentById = departmentRepository.findById(department.getId());
-        if (!departmentById.isPresent()) {
-            throw new EntityNotFoundException("Department","id :"+ department.getId());
-        }
-        Department addDepartment = departmentById.get();
+        Department addDepartment = departmentService.getDepartmentById(department.getId());
         student.setDepartment(addDepartment);
         return studentRepository.save(student);
     }
 
     public Student addCourseToStudent(Long id, Course course) {
         Student student = getStudentById(id);
-        Optional<Course> courseById = courseRepository.findById(course.getId());
-        if (!courseById.isPresent()) {
-            throw new EntityNotFoundException("Course","id :"+ course.getId());
-        }
-        Course addCourse = courseById.get();
+        Course addCourse = courseService.getCourseById(course.getId());
         List<Course> courses = student.getCourses();
         courses.add(addCourse);
         return studentRepository.save(student);

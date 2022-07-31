@@ -4,9 +4,7 @@ import com.bootcamp.StudentManagementSystem.exception.EntityNotFoundException;
 import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
-import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.model.mapper.PrelectorMapper;
-import com.bootcamp.StudentManagementSystem.repository.DepartmentRepository;
 import com.bootcamp.StudentManagementSystem.repository.PrelectorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PrelectorService {
     private final PrelectorRepository prelectorRepository;
-    private final DepartmentRepository departmentRepository;
+    private final DepartmentService departmentService;
 
     public List<Prelector> getAllPrelectors() {
         List<Prelector> allPrelectors = prelectorRepository.findAll();
@@ -28,7 +26,7 @@ public class PrelectorService {
 
     public Prelector getPrelectorById(Long id) {
         Optional<Prelector> byId = prelectorRepository.findById(id);
-        return byId.orElseThrow(() -> new EntityNotFoundException("Prelector","id :" + id));
+        return byId.orElseThrow(() -> new EntityNotFoundException("Prelector", "id :" + id));
     }
 
     public Prelector create(PrelectorDTO prelectorDTO) {
@@ -44,7 +42,7 @@ public class PrelectorService {
     public Prelector update(String email, PrelectorDTO prelector) {
         Optional<Prelector> prelectorByEmail = prelectorRepository.findPrelectorByEmail(email);
         if (!prelectorByEmail.isPresent())
-            throw new EntityNotFoundException("Prelector","email :" + email);
+            throw new EntityNotFoundException("Prelector", "email :" + email);
         Prelector updatedPrelector = prelectorByEmail.get();
         if (!StringUtils.isEmpty(prelector.getEmail())) {
             updatedPrelector.setEmail(prelector.getEmail());
@@ -59,7 +57,7 @@ public class PrelectorService {
         return prelectorRepository.save(updatedPrelector);
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         prelectorRepository.deleteAll();
     }
 
@@ -68,13 +66,9 @@ public class PrelectorService {
         return allPrelectors;
     }
 
-    public Prelector addDepartmentToPrelector (Long id, Department department){
+    public Prelector addDepartmentToPrelector(Long id, Department department) {
         Prelector prelector = getPrelectorById(id);
-        Optional<Department> departmentById = departmentRepository.findById(department.getId());
-        if(!departmentById.isPresent()){
-            throw new EntityNotFoundException("Department","id :" + department.getId());
-        }
-        Department addDepartment = departmentById.get();
+        Department addDepartment = departmentService.getDepartmentById(department.getId());
         prelector.setDepartment(addDepartment);
         return prelectorRepository.save(prelector);
     }

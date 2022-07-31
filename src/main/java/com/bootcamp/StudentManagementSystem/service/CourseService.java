@@ -6,9 +6,7 @@ import com.bootcamp.StudentManagementSystem.model.entity.Class;
 import com.bootcamp.StudentManagementSystem.model.entity.Course;
 import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.model.mapper.CourseMapper;
-import com.bootcamp.StudentManagementSystem.repository.ClassRepository;
 import com.bootcamp.StudentManagementSystem.repository.CourseRepository;
-import com.bootcamp.StudentManagementSystem.repository.PrelectorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -21,8 +19,8 @@ import java.util.Optional;
 public class CourseService {
 
     private final CourseRepository courseRepository;
-    private final ClassRepository classRepository;
-    private final PrelectorRepository prelectorRepository;
+    private final ClassService classService;
+    private final PrelectorService prelectorService;
 
     public List<Course> getAllCourses() {
         List<Course> allCourses = courseRepository.findAll();
@@ -79,22 +77,14 @@ public class CourseService {
 
     public Course addClassToCourse(Long id, Class class1) {
         Course course = getCourseById(id);
-        Optional<Class> classById = classRepository.findById(class1.getId());
-        if (!classById.isPresent()) {
-            throw new EntityNotFoundException("Class", "id :" + class1.getId());
-        }
-        Class addClass = classById.get();
+        Class addClass = classService.getClassById(class1.getId());
         course.setCourseClass(addClass);
         return courseRepository.save(course);
     }
 
     public Course addPrelectorToCourse(Long id, Prelector prelector) {
         Course course = getCourseById(id);
-        Optional<Prelector> prelectorById = prelectorRepository.findById(prelector.getId());
-        if (!prelectorById.isPresent()) {
-            throw new EntityNotFoundException("Prelector", "id :" + prelector.getId());
-        }
-        Prelector addPrelector = prelectorById.get();
+        Prelector addPrelector = prelectorService.getPrelectorById(prelector.getId());
         course.setPrelector(addPrelector);
         return courseRepository.save(course);
     }

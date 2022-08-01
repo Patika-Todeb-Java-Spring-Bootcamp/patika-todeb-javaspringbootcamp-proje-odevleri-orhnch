@@ -7,15 +7,11 @@ import com.bootcamp.StudentManagementSystem.model.entity.Course;
 import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.model.mapper.StudentMapper;
-import com.bootcamp.StudentManagementSystem.repository.ClassRepository;
-import com.bootcamp.StudentManagementSystem.repository.CourseRepository;
-import com.bootcamp.StudentManagementSystem.repository.DepartmentRepository;
 import com.bootcamp.StudentManagementSystem.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,11 +30,12 @@ public class StudentService {
 
     public Student getStudentById(Long id) {
         Optional<Student> byId = studentRepository.findById(id);
-        return byId.orElseThrow(() -> new EntityNotFoundException("Student","id :"+id));
+        return byId.orElseThrow(() -> new EntityNotFoundException("Student", "id :" + id));
     }
-    public Student getStudentByEmail(String  email) {
+
+    public Student getStudentByEmail(String email) {
         Optional<Student> studentByEmail = studentRepository.findStudentByEmail(email);
-        return studentByEmail.orElseThrow(() -> new EntityNotFoundException("Student","email :"+email));
+        return studentByEmail.orElseThrow(() -> new EntityNotFoundException("Student", "email :" + email));
     }
 
     public Student create(StudentDTO studentDTO) {
@@ -52,7 +49,7 @@ public class StudentService {
     }
 
     public Student update(String email, StudentDTO student) {
-       Student updatedStudent = getStudentByEmail(email);
+        Student updatedStudent = getStudentByEmail(email);
         if (!StringUtils.isEmpty(student.getEmail())) {
             updatedStudent.setEmail(student.getEmail());
         }

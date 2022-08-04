@@ -1,9 +1,13 @@
 package com.bootcamp.StudentManagementSystem.controller;
 
 import com.bootcamp.StudentManagementSystem.exception.handler.GenericExceptionHandler;
+import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
+import com.bootcamp.StudentManagementSystem.model.dto.StudentDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
+import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.service.PrelectorService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +22,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -27,7 +35,11 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 class PrelectorControllerTest {
@@ -90,15 +102,45 @@ class PrelectorControllerTest {
 
 
     @Test
-    void createNewPrelectors() {
-    }
+    void createNewPrelectors() throws Exception {
+        // init test values
+        Prelector expectedPrelector = getSampleTestPrelectors().get(0);
+        ObjectMapper inputJson = new ObjectMapper();
+        String inner = inputJson.writeValueAsString(expectedPrelector);
 
-    @Test
-    void deleteCourse() {
+        // stub - given
+        Mockito.when(prelectorService.create(Mockito.any(PrelectorDTO.class))).thenReturn(expectedPrelector);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/prelector/create")
+                .accept(MediaType.APPLICATION_JSON)
+                .content(inner)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult result = mvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = result.getResponse();
+        String outputInJson = response.getContentAsString();
+
+
+        // then
+        assertThat(outputInJson).isEqualTo(inner);
+        assertEquals(HttpStatus.CREATED.value(),response.getStatus());
     }
 
     @Test
     void updatePrelector() {
+    }
+
+    @Test
+    void deletePrelector() throws Exception {
+        // init test values
+        willDoNothing().given(prelectorService).delete(1L);
+
+        // stub - given
+        ResultActions response = mvc.perform(delete("/api/prelector?id=1"));
+
+        // then
+        response.andExpect(status().isOk())
+                .andDo(print());
     }
 
 

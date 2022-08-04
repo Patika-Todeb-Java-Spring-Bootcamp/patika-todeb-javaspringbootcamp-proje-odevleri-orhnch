@@ -1,7 +1,10 @@
 package com.bootcamp.StudentManagementSystem.controller;
 
 import com.bootcamp.StudentManagementSystem.exception.handler.GenericExceptionHandler;
+import com.bootcamp.StudentManagementSystem.model.dto.DepartmentDTO;
+import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
 import com.bootcamp.StudentManagementSystem.model.entity.Department;
+import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.service.DepartmentService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +20,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -26,7 +33,11 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 class DepartmentControllerTest {
@@ -60,7 +71,7 @@ class DepartmentControllerTest {
 
         MockHttpServletResponse response = mvc.perform(get("/api/department/all")
                         .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
+                .andDo(print())
                 .andReturn().getResponse();
 
         // then
@@ -80,7 +91,7 @@ class DepartmentControllerTest {
 
         MockHttpServletResponse response = mvc.perform(get("/api/department/1")
                         .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
+                .andDo(print())
                 .andReturn().getResponse();
 
         // then
@@ -91,14 +102,44 @@ class DepartmentControllerTest {
 
     @Test
     void createNewDepartment() throws Exception {
-    }
+        // init test values
+        Department expectedDepartment = getSampleTestDepartments().get(0);
+        ObjectMapper inputJson = new ObjectMapper();
+        String inner = inputJson.writeValueAsString(expectedDepartment);
 
-    @Test
-    void deleteDepartment() {
+        // stub - given
+        Mockito.when(departmentService.create(Mockito.any(DepartmentDTO.class))).thenReturn(expectedDepartment);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/department/create")
+                .accept(MediaType.APPLICATION_JSON)
+                .content(inner)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult result = mvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = result.getResponse();
+        String outputInJson = response.getContentAsString();
+
+
+        // then
+        assertEquals(HttpStatus.CREATED.value(),response.getStatus());
+        assertThat(outputInJson).isEqualTo(inner);
     }
 
     @Test
     void updateDepartment() {
+    }
+
+    @Test
+    void deleteDepartment() throws Exception {
+        // init test values
+        willDoNothing().given(departmentService).delete(1L);
+
+        // stub - given
+        ResultActions response = mvc.perform(delete("/api/department?id=1"));
+
+        // then
+        response.andExpect(status().isOk())
+                .andDo(print());
     }
 
 

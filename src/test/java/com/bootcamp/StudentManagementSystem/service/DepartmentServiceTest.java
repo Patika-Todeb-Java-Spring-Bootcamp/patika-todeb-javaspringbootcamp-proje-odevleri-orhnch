@@ -19,6 +19,9 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DepartmentServiceTest {
@@ -36,7 +39,7 @@ class DepartmentServiceTest {
         List<Department> expDepartmentList = getSampleTestDepartments();
 
         // stub - when step
-        Mockito.when(departmentRepository.findAll()).thenReturn(expDepartmentList);
+        when(departmentRepository.findAll()).thenReturn(expDepartmentList);
 
         // then - validate step
         List<Department> actualDepartmentList = departmentService.getAllDepartments();
@@ -64,7 +67,7 @@ class DepartmentServiceTest {
         Optional<Department> optExpectedDepartment = Optional.of(expectedDepartment);
 
         // stub - when step
-        Mockito.when(departmentRepository.findById(Mockito.any())).thenReturn(optExpectedDepartment);
+        when(departmentRepository.findById(Mockito.any())).thenReturn(optExpectedDepartment);
 
         // then - validate step
         Department actualDepartment = departmentService.getDepartmentById(1L);
@@ -77,7 +80,7 @@ class DepartmentServiceTest {
     @Test
     void getDepartmentById_NOT_FOUND() {
         // stub - when step
-        Mockito.when(departmentRepository.findById(1L)).thenReturn(Optional.empty());
+        when(departmentRepository.findById(1L)).thenReturn(Optional.empty());
 
         // then - validate step
         assertThrows(EntityNotFoundException.class,
@@ -96,32 +99,45 @@ class DepartmentServiceTest {
         Department actual = getSampleTestDepartments().get(0);
 
         // stub - when step
-        Mockito.when(departmentRepository.save(expected)).thenReturn(actual);
+        when(departmentRepository.save(expected)).thenReturn(actual);
 
         // then - validate step
         DepartmentDTO departmentDTO = new DepartmentDTO();
         departmentDTO.setName(expected.getName());
         departmentService.create(departmentDTO);
 
-        Mockito.verify(departmentRepository, Mockito.times(1)).save(Mockito.any());
-    }
-
-    @Test
-    void delete() {
-        // init step
-
-        // stub - when step
-
-        // then - validate step
+        verify(departmentRepository, Mockito.times(1)).save(Mockito.any());
     }
 
     @Test
     void update() {
         // init step
+        Department department = getSampleTestDepartments().get(0);
+
+        DepartmentDTO departmentDTO = new DepartmentDTO();
+        departmentDTO.setName("Chemistry");
+
 
         // stub - when step
+        given(departmentRepository.findDepartmentByName(department.getName())).willReturn(Optional.of(department));
+        departmentService.update(department.getName(), departmentDTO);
 
         // then - validate step
+        assertEquals(department.getName(), departmentDTO.getName());
+
+    }
+
+    @Test
+    void delete() {
+        // init step
+        Department department = getSampleTestDepartments().get(0);
+
+        // stub - when step
+        when(departmentRepository.findById(department.getId())).thenReturn(Optional.of(department));
+
+        // then - validate step
+        departmentService.delete(department.getId());
+        verify(departmentRepository).deleteById(department.getId());
     }
 
 

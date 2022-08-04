@@ -1,9 +1,7 @@
 package com.bootcamp.StudentManagementSystem.service;
 
 import com.bootcamp.StudentManagementSystem.exception.EntityNotFoundException;
-import com.bootcamp.StudentManagementSystem.model.dto.DepartmentDTO;
 import com.bootcamp.StudentManagementSystem.model.dto.PrelectorDTO;
-import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.repository.PrelectorRepository;
 import org.junit.jupiter.api.Test;
@@ -21,6 +19,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class PrelectorServiceTest {
@@ -112,11 +112,36 @@ class PrelectorServiceTest {
     }
 
     @Test
-    void delete() {
+    void update() {
+        // init step
+        Prelector prelector = getSampleTestPrelectors().get(0);
+
+        PrelectorDTO prelectorDTO = new PrelectorDTO();
+        prelectorDTO.setEmail("orhancakmak@patika");
+        prelectorDTO.setFirstName("Orhan");
+        prelectorDTO.setLastName("Cakmak");
+
+        // stub - when step
+        given(prelectorRepository.findPrelectorByEmail(prelector.getEmail())).willReturn(Optional.of(prelector));
+        prelectorService.update(prelector.getEmail(), prelectorDTO);
+
+        // then - validate step
+        assertEquals(prelector.getEmail(), prelectorDTO.getEmail());
+        assertEquals(prelector.getFirstName(), prelectorDTO.getFirstName());
+        assertEquals(prelector.getLastName(), prelectorDTO.getLastName());
     }
 
     @Test
-    void update() {
+    void delete() {
+        // init step
+        Prelector prelector = getSampleTestPrelectors().get(0);
+
+        // stub - when step
+        Mockito.when(prelectorRepository.findById(prelector.getId())).thenReturn(Optional.of(prelector));
+
+        // then - validate step
+        prelectorService.delete(prelector.getId());
+        verify(prelectorRepository).deleteById(prelector.getId());
     }
 
 

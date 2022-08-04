@@ -19,6 +19,9 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class StudentServiceTest {
@@ -109,19 +112,43 @@ class StudentServiceTest {
     }
 
     @Test
-    void delete() {
+    void update() {
+        // init step
+        Student student = getSampleTestStudents().get(0);
+
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setEmail("orhancakmak@patika");
+        studentDTO.setFirstName("Orhan");
+        studentDTO.setLastName("Cakmak");
+
+        // stub - when step
+        given(studentRepository.findStudentByEmail(student.getEmail())).willReturn(Optional.of(student));
+        studentService.update(student.getEmail(), studentDTO);
+
+        // then - validate step
+        assertEquals(student.getEmail(), studentDTO.getEmail());
+        assertEquals(student.getFirstName(), studentDTO.getFirstName());
+        assertEquals(student.getLastName(), studentDTO.getLastName());
     }
 
     @Test
-    void update() {
+    void delete() {
+        Student student = getSampleTestStudents().get(0);
+
+        // stub - when step
+        when(studentRepository.findById(student.getId())).thenReturn(Optional.of(student));
+
+        // then - validate step
+        studentService.delete(student.getId());
+        verify(studentRepository).deleteById(student.getId());
     }
 
 
     private List<Student> getSampleTestStudents() {
         List<Student> sampleList = new ArrayList<>();
-        Student student = new Student(1L, "Orhan", "Cakmak", "orhancakmak@patika", null, null,new ArrayList<>());
-        Student student2 = new Student(2L, "Ali", "Veli", "aliveli@patika", null, null,new ArrayList<>());
-        Student student3 = new Student(3L, "Mehmet", "Genc", "mehmetgenc@patika", null, null,new ArrayList<>());
+        Student student = new Student(1L, "Orhan", "Cakmak", "orhancakmak@patika", null, null, new ArrayList<>());
+        Student student2 = new Student(2L, "Ali", "Veli", "aliveli@patika", null, null, new ArrayList<>());
+        Student student3 = new Student(3L, "Mehmet", "Genc", "mehmetgenc@patika", null, null, new ArrayList<>());
         sampleList.add(student);
         sampleList.add(student2);
         sampleList.add(student3);

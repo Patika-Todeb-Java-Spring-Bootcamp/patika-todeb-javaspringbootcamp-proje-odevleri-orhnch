@@ -6,12 +6,13 @@ import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
 import com.bootcamp.StudentManagementSystem.model.mapper.FacultyMapper;
 import com.bootcamp.StudentManagementSystem.repository.FacultyRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class FacultyService {
@@ -25,7 +26,10 @@ public class FacultyService {
 
     public Faculty getFacultyById(Long id) {
         Optional<Faculty> byId = facultyRepository.findById(id);
-        return byId.orElseThrow(() -> new EntityNotFoundException("Faculty","id: "+ id));
+        return byId.orElseThrow(() ->{
+            log.error("Faculty could not found by id: " +id);
+            return new EntityNotFoundException("Faculty", "id :" + id);
+        });
     }
 
     public Faculty getFacultyByName(String name) {

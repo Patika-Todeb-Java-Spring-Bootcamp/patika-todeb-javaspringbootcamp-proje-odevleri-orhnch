@@ -7,12 +7,13 @@ import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.model.mapper.PrelectorMapper;
 import com.bootcamp.StudentManagementSystem.repository.PrelectorRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PrelectorService {
@@ -26,7 +27,10 @@ public class PrelectorService {
 
     public Prelector getPrelectorById(Long id) {
         Optional<Prelector> byId = prelectorRepository.findById(id);
-        return byId.orElseThrow(() -> new EntityNotFoundException("Prelector", "id :" + id));
+        return byId.orElseThrow(() ->{
+            log.error("Prelector could not found by id: " +id);
+            return new EntityNotFoundException("Prelector", "id :" + id);
+        });
     }
 
     public Prelector getPrelectorByEmail(String email) {

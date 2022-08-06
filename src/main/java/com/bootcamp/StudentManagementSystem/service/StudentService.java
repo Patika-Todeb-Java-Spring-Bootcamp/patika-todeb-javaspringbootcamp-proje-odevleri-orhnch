@@ -9,12 +9,14 @@ import com.bootcamp.StudentManagementSystem.model.entity.Student;
 import com.bootcamp.StudentManagementSystem.model.mapper.StudentMapper;
 import com.bootcamp.StudentManagementSystem.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class StudentService {
@@ -30,7 +32,10 @@ public class StudentService {
 
     public Student getStudentById(Long id) {
         Optional<Student> byId = studentRepository.findById(id);
-        return byId.orElseThrow(() -> new EntityNotFoundException("Student", "id :" + id));
+        return byId.orElseThrow(() -> {
+            log.error("Student could not found by id: " + id);
+            return new EntityNotFoundException("Student", "id :" + id);
+        });
     }
 
     public Student getStudentByEmail(String email) {

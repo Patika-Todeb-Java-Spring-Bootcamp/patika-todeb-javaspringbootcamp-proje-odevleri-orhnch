@@ -8,12 +8,14 @@ import com.bootcamp.StudentManagementSystem.model.entity.Prelector;
 import com.bootcamp.StudentManagementSystem.model.mapper.CourseMapper;
 import com.bootcamp.StudentManagementSystem.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CourseService {
@@ -29,7 +31,10 @@ public class CourseService {
 
     public Course getCourseById(Long id) {
         Optional<Course> byId = courseRepository.findById(id);
-        return byId.orElseThrow(() -> new EntityNotFoundException("Course", "id :" + id));
+        return byId.orElseThrow(() ->{
+            log.error("Course could not found by id: " +id);
+            return new EntityNotFoundException("Course", "id :" + id);
+        });
     }
     public Course getCourseByCode(String code) {
         Optional<Course> byId = courseRepository.findCourseByCode(code);

@@ -7,12 +7,14 @@ import com.bootcamp.StudentManagementSystem.model.entity.Faculty;
 import com.bootcamp.StudentManagementSystem.model.mapper.DepartmentMapper;
 import com.bootcamp.StudentManagementSystem.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class DepartmentService {
@@ -26,7 +28,10 @@ public class DepartmentService {
 
     public Department getDepartmentById(Long id) {
         Optional<Department> byId = departmentRepository.findById(id);
-        return byId.orElseThrow(() -> new EntityNotFoundException("Department", "id: " + id));
+        return byId.orElseThrow(() ->{
+            log.error("Department could not found by id: " +id);
+            return new EntityNotFoundException("Department", "id :" + id);
+        });
     }
     public Department getDepartmentByName(String name) {
         Optional<Department> departmentByName = departmentRepository.findDepartmentByName(name);

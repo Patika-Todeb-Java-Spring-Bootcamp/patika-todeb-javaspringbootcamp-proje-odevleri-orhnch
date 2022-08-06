@@ -7,11 +7,12 @@ import com.bootcamp.StudentManagementSystem.model.entity.Department;
 import com.bootcamp.StudentManagementSystem.model.mapper.ClassMapper;
 import com.bootcamp.StudentManagementSystem.repository.ClassRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ClassService {
@@ -32,7 +33,10 @@ public class ClassService {
 
     public Class getClassById(Long id) {
         Optional<Class> byId = classRepository.findById(id);
-        return byId.orElseThrow(() -> new EntityNotFoundException("Class", "id :" + id));
+        return byId.orElseThrow(() ->{
+            log.error("Class could not found by id: " +id);
+            return new EntityNotFoundException("Class", "id :" + id);
+        });
     }
 
     public void delete(Long id) {
